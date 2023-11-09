@@ -15,6 +15,8 @@ import productLanding from "public/images/portfolio/product-landing.png";
 import sentimentAnalysis from "public/images/portfolio/sentimen-analysis.png";
 import surveyForm from "public/images/portfolio/survey-form.png";
 import tributePage from "public/images/portfolio/tribute-page.png";
+import findYourLove from "public/images/portfolio/find-your-love.png";
+
 
 export interface PortfolioItem {
     title: string;
@@ -39,6 +41,13 @@ function getSkillItems(skillList: string[]): SkillItem[] {
 }
 
 export const portfolioItems: PortfolioItem[] = [
+    {
+        title: "Find Your Love AI",
+        tumbnail: findYourLove,
+        stacks: getSkillItems(["Python"]),
+        description: "This is a python game using pygame library. Implementing Breadth First Search (BFS), Depth First Search (DFS), and Uniform Cost Search (UCS) algorithm.",
+        url: "https://github.com/glennprays/pygame-maze",
+    },
     {
         title: "Personal Website",
         tumbnail: personalWebsite,
