@@ -22,6 +22,8 @@ import github from "public/images/icon/tools/github.svg"
 import postman from "public/images/icon/tools/postman.svg"
 import docker from "public/images/icon/tools/docker.svg"
 import figma from "public/images/icon/tools/figma.svg"
+import flask from "public/images/icon/stack/flask.svg"
+import nginx from "public/images/icon/stack/nginx.svg"
 import { StaticImport } from "next/dist/shared/lib/get-img-props"
 export interface SkillItem {
     name: string,
@@ -44,6 +46,11 @@ export const stackList : SkillItem[] = [
         name: "Golang",
         icon: golang,
         alt: "Golang Icon",
+    },
+    {
+        name: "Flask",
+        icon: flask,
+        alt: "Flask Icon",
     },
     {
         name: "Python",
@@ -104,6 +111,11 @@ export const stackList : SkillItem[] = [
         name: "Neo4j",
         icon: neo4j,
         alt: "Neo4j",
+    },
+    {
+        name: "Nginx",
+        icon: nginx,
+        alt: "Nginx Icon",
     },
     {
         name: "Node JS",

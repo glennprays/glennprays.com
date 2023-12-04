@@ -16,6 +16,8 @@ import sentimentAnalysis from "public/images/portfolio/sentimen-analysis.png";
 import surveyForm from "public/images/portfolio/survey-form.png";
 import tributePage from "public/images/portfolio/tribute-page.png";
 import findYourLove from "public/images/portfolio/find-your-love.png";
+import cariQuy from "public/images/portfolio/cari-aja-quy.png";
+import dengerin from "public/images/portfolio/dengerin-music-discovery.png";
 
 
 export interface PortfolioItem {
@@ -41,13 +43,25 @@ function getSkillItems(skillList: string[]): SkillItem[] {
 }
 
 export const portfolioItems: PortfolioItem[] = [
-    {
-        title: "Find Your Love AI",
+    {   title: "Dengerin Music Discovery",
+        tumbnail: dengerin,
+        stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
+        description: "Introducing a  Music Discovery Web Application (API and user-friendly interface). The platform is enhanced with Google API integration for song detection.",
+        url: "https://github.com/glennprays/music-discovery-server",
+    },
+    {   title: "Cari Quy Search Engine",
+        tumbnail: cariQuy,
+        stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
+        description: "Cari Quy is a search engine that utilizes TF-IDF and Cosine Similarity methods for information retrieval.",
+        url: "https://github.com/glennprays/search-engine-server",
+    },
+    {   title: "Find Your Love AI",
         tumbnail: findYourLove,
         stacks: getSkillItems(["Python"]),
         description: "This is a python game using pygame library. Implementing Breadth First Search (BFS), Depth First Search (DFS), and Uniform Cost Search (UCS) algorithm.",
         url: "https://github.com/glennprays/pygame-maze",
     },
+     
     {
         title: "Personal Website",
         tumbnail: personalWebsite,
