@@ -59,7 +59,7 @@ export const portfolioItems: PortfolioItem[] = [
         tumbnail: findYourLove,
         stacks: getSkillItems(["Python"]),
         description: "This is a python game using pygame library. Implementing Breadth First Search (BFS), Depth First Search (DFS), and Uniform Cost Search (UCS) algorithm.",
-        url: "https://github.com/glennprays/pygame-maze",
+        url: "https://github.com/glennprays/find-your-love",
     },
      
     {
