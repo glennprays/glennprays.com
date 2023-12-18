@@ -128,7 +128,7 @@ export default async function Page({ params }: Props) {
                     </React.Fragment>
                 ))}
             </div>
-            <div className="flex items-center gap-2 my-2 text-xs text-gray-600 dark:text-neutral-400">
+            <div className="flex items-center gap-2 my-2 text-xs text-gray-600 dark:text-neutral-100">
                 <time dateTime={blog?.date} className="">
                     {format(parseISO(blog?.date || ""), "LLLL d, yyyy")}
                 </time>
