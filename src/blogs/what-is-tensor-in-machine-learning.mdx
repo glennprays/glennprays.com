@@ -1,0 +1,26 @@
+---
+title: "Machine Learning: What are Tensors?"
+short_title: Tensors in Machine Learning
+date: 2023-12-18
+description: In machine learning, tensors are crucial multi-dimensional arrays for data representation and manipulation in diverse algorithms.
+author: Glenn Pray
+tag: "Data Science"
+---
+In simple term, tensor is a concept and refers to a multi-dimensional array that can represent data at various levels of complexity. Essentially, a tensor is a mathematical entity that expands the principles of scalars, vectors, and matrices into higher dimensions. Tensors represent diverse data types and transformations, with their order or rank denoting the required number of indices for each component specification.
+
+
+In machine learning, tensors serve as fundamental structures for organizing and efficiently processing data. These multi-dimensional arrays represent input, model parameters, and output predictions.
+
+## Rank and Shape of Tensors
+Rank is used to specifies dimentionality of the tensor. The rank or degree of a tensor is determined by the number of indices needed to identify each component within the tensor. Shape of tensor describes the size of each dimension and expressed as a tuple of integers.
+
+- A rank-0 tensor (also known as a scalar) requires no indices, as it is a single value and has no dimension so the shape is emty tuple`()`.
+- A rank-1 tensor (vector) requires one index to specify its components. The shape is `(m, n)`.
+- A rank-2 tensor (matrix) requires two indices for component identification. The shape is `(p, q, r)`.
+
+![Tensor Ranks](/images/blog/tensor-ranks-shapes.png)
+
+There is no inherent constraint on the maximum rank of a tensor. In machine learning, particularly in deep learning models, tensors commonly have lower ranks (1st or 2nd order). However, in intricate situations, higher-order tensors like 3rd and 4th order may be utilized, albeit with heightened complexity and computational requirements.
+
+## Conclution
+Tensors are crucial in machine learning as flexible multi-dimensional arrays representing data at different levels of complexity. Their rank signifies dimensionality, and shape indicates dimension sizes. While lower-rank tensors are common for efficiency in deep learning models, higher-order tensors may be used in more complex situations. grasping the connection between rank, shape, and practical use is key to effectively using tensors in various machine learning scenarios.
