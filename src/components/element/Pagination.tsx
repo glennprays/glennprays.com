@@ -65,6 +65,7 @@ export default function Pagination({
                 },
                 (_, i) => (
                     <Link
+                    key={`page-${i}`}
                         className={
                             segment.pageIndex === i
                                 ? "rounded-full flex justify-center items-center bg-neutral-300 dark:bg-neutral-700 w-[27px] h-[27px] mx-[-3px]"
