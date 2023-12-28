@@ -1,5 +1,5 @@
 import { flattenText } from "../utils/formater";
-
+import { allBlogs } from "contentlayer/generated";
 type BlogCategory = {
     name: string;
     description: string;
@@ -23,3 +23,32 @@ export const blogTopics = blogCategories.map((category, index) => {
     category.slug = flattenText(category.name.toLocaleLowerCase());
     return category;
 });
+
+class pagination {
+    firstPagePath: string;
+    basePath: string;
+    totalPages: number;
+    showedPages: number;
+    blogsPerPage: number;
+
+    constructor(
+        firstPagePath: string,
+        basePath: string,
+        totalBlogs: number,
+        showedPages: number,
+        blogsPerPage: number = 5
+    ) {
+        this.firstPagePath = firstPagePath;
+        this.basePath = basePath;
+        this.showedPages = showedPages;
+        this.blogsPerPage = blogsPerPage;
+        this.totalPages = Math.ceil(totalBlogs / this.blogsPerPage);
+    }
+}
+
+export const paginationConfig = new pagination(
+    "/blog",
+    "/blog/page",
+    allBlogs.length,
+    5
+);
