@@ -1,7 +1,9 @@
+import Pagination from "@/components/element/Pagination";
 import { allBlogs, Blog } from "contentlayer/generated";
 import { compareDesc, format, parseISO } from "date-fns";
 import Link from "next/link";
 import { AiOutlineCompass } from "react-icons/ai";
+import { paginationConfig } from "@/constans/blog";
 
 function BlogCard({ blog }: { blog: Blog }) {
     return (
@@ -31,6 +33,8 @@ function BlogCard({ blog }: { blog: Blog }) {
 }
 
 export default function Page() {
+    const { firstPagePath, basePath, totalPages, showedPages, blogsPerPage } =
+        paginationConfig;
     const blogs = allBlogs.sort((a, b) =>
         compareDesc(new Date(a.date), new Date(b.date))
     );
@@ -53,9 +57,18 @@ export default function Page() {
                 </div>
             </div>
             <div className="flex flex-col gap-16">
-                {blogs.map((blog) => (
+                {blogs.slice(0, blogsPerPage).map((blog) => (
                     <BlogCard blog={blog} key={blog.url} />
                 ))}
+            </div>
+            <div className="w-full flex justify-center">
+                <Pagination
+                    firstPagePath={firstPagePath}
+                    basePath={basePath}
+                    currentPage={1}
+                    totalPages={totalPages}
+                    showedPages={showedPages}
+                />
             </div>
             {blogs ? null : (
                 <span className="font-mono text-lg w-full">No blog yet</span>
