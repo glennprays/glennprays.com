@@ -48,7 +48,7 @@ class pagination {
 
 export const paginationConfig = new pagination(
     "/blog",
-    "/blog",
+    "/blog/page",
     allBlogs.length,
     5
 );

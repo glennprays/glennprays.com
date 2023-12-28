@@ -48,7 +48,7 @@ export default function Pagination({
             {segment.current > 1 ? (
                 <Link
                     href={
-                        currentPage === 2
+                        segment.current === 2
                             ? "/blog"
                             : `/blog/page/${segment.firstPage - 1}`
                     }
@@ -71,7 +71,7 @@ export default function Pagination({
                                 : ""
                         }
                         href={
-                            currentPage === 1 && firstPagePath && i === 0
+                            firstPagePath && segment.firstPage + i === 1
                                 ? firstPagePath
                                 : path.join(
                                       basePath,

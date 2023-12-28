@@ -1,34 +1,37 @@
-import Pagination from "@/components/element/Pagination";
 import { allBlogs } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
-import Link from "next/link";
-import { AiOutlineCompass } from "react-icons/ai";
 import { paginationConfig } from "@/constans/blog";
+import { compareDesc } from "date-fns";
 import BlogCard from "@/components/element/BlogCard";
+import Pagination from "@/components/element/Pagination";
 
-export default function Page() {
+type Props = {
+    params: {
+        number: number;
+    };
+};
+
+export async function generateStaticParams() {
+    const { totalPages } = paginationConfig;
+    const paths = Array.from({ length: totalPages - 1 }, (_, i) => ({
+        number: (i + 2).toString(),
+    }));
+    return paths;
+}
+
+export default async function Page({ params }: Props) {
     const { firstPagePath, basePath, totalPages, showedPages, blogsPerPage } =
         paginationConfig;
+    const firstBlogIndex = (params.number - 1) * showedPages;
     const blogs = allBlogs
         .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-        .slice(0, blogsPerPage);
-
+        .slice(firstBlogIndex, firstBlogIndex + blogsPerPage);
     return (
         <div className="w-full mx-auto md:w-[650px]">
             <div className="mb-9 flex flex-col gap-4">
-                <h1 className="text-5xl font-bold">Blogs</h1>
-                <span className="text-sm">
-                    This is my blog, talking about software engineering and data
-                    science.
-                </span>
-                <div className="w-full flex">
-                    <Link
-                        href={`/blog/topics`}
-                        className="flex gap-2 items-center rounded-full py-1 px-2 bg-neutral-300 dark:bg-neutral-700"
-                    >
-                        <AiOutlineCompass /> Topics
-                    </Link>
-                </div>
+                <h1 className="text-5xl font-bold">Blogs page {params.number}</h1>
+                {/* <span className="">
+                    Page {params.number}
+                </span> */}
             </div>
             <div className="flex flex-col gap-16">
                 {blogs.map((blog) => (
@@ -39,14 +42,11 @@ export default function Page() {
                 <Pagination
                     firstPagePath={firstPagePath}
                     basePath={basePath}
-                    currentPage={1}
+                    currentPage={params.number}
                     totalPages={totalPages}
                     showedPages={showedPages}
                 />
             </div>
-            {blogs ? null : (
-                <span className="font-mono text-lg w-full">No blog yet</span>
-            )}
         </div>
     );
 }
