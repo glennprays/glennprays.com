@@ -3,8 +3,15 @@ import { allBlogs } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import Link from "next/link";
 import { AiOutlineCompass } from "react-icons/ai";
-import { paginationConfig } from "@/constans/blog";
+import { pagination } from "@/constans/blog";
 import BlogCard from "@/components/element/BlogCard";
+
+export const paginationConfig = new pagination(
+    "/blog",
+    "/blog/page",
+    allBlogs.length,
+    5
+);
 
 export default function Page() {
     const { firstPagePath, basePath, totalPages, showedPages, blogsPerPage } =

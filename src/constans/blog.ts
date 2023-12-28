@@ -24,7 +24,7 @@ export const blogTopics = blogCategories.map((category, index) => {
     return category;
 });
 
-class pagination {
+export class pagination {
     firstPagePath: string;
     basePath: string;
     totalPages: number;
@@ -45,10 +45,9 @@ class pagination {
         this.totalPages = Math.ceil(totalBlogs / this.blogsPerPage);
     }
 }
-
-export const paginationConfig = new pagination(
-    "/blog",
-    "/blog/page",
-    allBlogs.length,
-    5
-);
+// export const paginationConfig = new pagination(
+//     "/blog",
+//     "/blog/page",
+//     allBlogs.length,
+//     5
+// );
