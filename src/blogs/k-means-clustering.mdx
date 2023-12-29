@@ -1,0 +1,30 @@
+---
+title: "Machine Learning: K-Means Clustering"
+short_title: K-Means Clustering
+date: 2023-12-23
+description: K-Means is a popular clustering algorithm, simplifying data partitioning based on similarity for efficient pattern recognition in diverse applications.
+author: Glenn Pray
+tag: "Data Science"
+---
+K-Means is a widely used machine learning clustering algorithm, known for its simplicity and efficiency. It partitions data into clusters based on similarity, aiding pattern recognition. In machine learning, K-Means is used for clustering, a form of unsupervised learning. It groups similar data points together, aiding pattern recognition and data exploration.
+> [Paradigms of Machine Learning](/blog/paradigms-of-machine-learning)
+
+## How It Works
+1. **Initiation**  
+ Choose K data points as initial centroids, these are the centers of the clusters. Centroids can be chosen randomly or with a more sophisticated method, such as K-Means++. K will be the number of clusters. The choice of K significantly impacts the quality and interpretability of the clustering results. There are several methods for choosing K, including the elbow method and silhouette method.
+2. **Assigment**  
+ Allocate each data point to its closest centroid, a process conventionally executed through the computation of Euclidean distances between the data point and each respective centroid. This method is commonly employed in the implementation of the K-means clustering algorithm.
+3. **Update**  
+ Recompute the centroids of each cluster by taking the mean of all data points assigned to that cluster.
+4. **Repeat**  
+ Continuously execute the assignment and centroid update steps until convergence is reached. Convergence is recognized when the centroids stabilize, demonstrating minimal further change, or when a predefined number of iterations has been completed.
+<video controls>
+    <source src='/videos/blog/k-means-clustering.mp4' type='video/mp4'/>
+</video>
+
+## Limitations
+- **Sensitive to Outliers**: K-Means is sensitive to outliers, which can significantly impact the centroids and cluster assignments.
+- **Dependence on Euclidean Distance**: K-means utilizes the Euclidean distance metric, a measure of straight-line distance, which may not be optimal for diverse types of data.
+
+## Conclution
+K-means, a clustering algorithm, categorizes data into K groups using distance metrics. Critical is the optimal selection of K, with limitations including sensitivity to outliers and assumptions of spherical clusters.
