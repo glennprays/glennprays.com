@@ -19,7 +19,7 @@ export default async function sitemap() {
     }));
 
     return [
-        { url: baseUrl, lastModified: new Date() },
+        { url: baseUrl, lastModified: new Date('2023-12-29') },
         { url: `${baseUrl}/blog`, lastModified: new Date() },
         { url: `${baseUrl}/blog/topics`, lastModified: new Date() },
         ...blogTopicsUrls,
