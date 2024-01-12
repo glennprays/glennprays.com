@@ -1,0 +1,43 @@
+---
+title: "Machine Learning: Perceptron Classifier"
+short_title: Perceptron Classifier
+date: 2023-12-23
+description: Perceptron Classifier is one of the classification algorithms in machine learning. It is similar to linear regression model because it uses combination of features to predict.
+author: Glenn Pray
+tag: "Data Science"
+---
+Perceptron Classifier is one of the classification algorithms in machine learning. It is similar to linear regression model because it uses combination of features and weight to predict. The difference is that the output of perceptron classifier is binary (0 or 1) which is binary classification (predict two classes only) while linear regression is continuous. Perceptron classifier is also known as single layer neural network in other words it is the building block of neural network.
+
+## Terminologies
+- **Perceptron**: Simple form of neural network because it is a single layer neural network.
+- **Input Features**: Features that used to trained the perceptron model.
+- **Weight**: Coefficient that associated with each input features, represent the importance the feature.
+- **Bias**: Additional parameter to provide flexibilty and accuracy, it allows the decition boundary to be shifted that make adaptable function.
+- **Weighted Sum**: Weighted sum of product of input features and its weight, plus the bias.
+- **Activation Function**: Mathematical operation that takes the weighted sum as input and return the output of perceptron.
+- **Threshold**: Predefined value used to determine the output of perceptron.
+- **Learning Rate**: Size of steps taken during the optimization in training process, it update weight and bias.
+- **Epoch**: Number of times the model will be trained with the entire dataset.
+
+## algorithms
+![Perceptron formula](/images/blog/perceptron-formula.png)
+To undertand the algorithms, we will use a example. This model will predict whether a person will buy a car or not based on their age and income.
+1. **Initialize the weight and bias**  
+ From example above, there are two input features age and income. So, it should have two weights (base on the number of input features) and one bias. The weight and bias commonly initialized with zero.
+2. **Dataset with label**  
+ The data should have input feature (age and income) and label (0 or 1), from the example above 0 means not buy and 1 means buy.
+3. **Calculate the weighted sum**
+ It calculate the product of input features and its weight, sum it all, and plus bias value.
+4. **Apply Activation Function**  
+ There are a few activation function that can be used, but for this example we will use step function. Step function will return 1 if the weighted sum is greater than threshold and 0 if the weighted sum is less than threshold. Threshold value is predefined and it is constant. There are a few approaces to determine the threshold value.
+5. **Calculate the error**
+ Compare the predicted output with the actual output (label) to calculate the error. The error is the difference between predicted output and actual output.
+6. **Update the weight and bias**  
+ Update the weight and bias based on the error and learning rate using the update formula.
+7. **Repeat the process**  
+ Repeat the process until the error is zero or the number of epoch is reached.
+8. **Convergent**  
+ The perceptron can be predict accurately if the error is zero or close to zero or the epoch is reached.
+
+## Conclusion
+Perceptron is one of the classification algorithms that have binary output (0 or 1) predicting two classes only. It works by iteratively updating the weight and bias based on the error and learning rate until it convergent.
