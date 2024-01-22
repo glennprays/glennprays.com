@@ -1,0 +1,41 @@
+---
+title: "Machine Learning Optimization with Gradient Descent"
+short_title: Gradient Descent Optimization
+date: 2024-01-22
+description: Gradient Descent is optimization algorithm of find optimal solution to problems. In Machine Learning it is used to find optimal parameters of model to minimize cost function.
+author: Glenn Pray
+tag: "Data Science"
+---
+Gradient Descent is optimization algorithm of find optimal solution to problems. In Machine Learning it is used to find optimal parameters of model to minimize cost function.
+
+Gradient Decent is fundametal algorithm for training supervised model, such as linear regression, logistic regression, and neural network. During the training process, the algorithm adjusts the model parameters to minimize difference between predicted and actual output.
+
+There are difference variants of gradient descent:
+## 1. Batch Gradient Descent
+ This is the simplest form of gradient descent. It uses the whole training dataset to calculate gradient of cost function at each step (epoch). It is slow and computationally expensive. It is not suitable for large dataset.
+  ### Algorithm Steps:
+- Compute the gradient of the cost function with respect to the parameters using entire training dataset.
+- Update the parameters in the opposite direction of the gradient.
+- Repeat until convergence.
+
+## 2. Stochastic Gradient Descent (SGD)
+ This variant uses only one training instance from dataset that picked randomly at each step, and it will compute the gradient descent from that single instance. SGD makes it possible to train on huge dataset and has better change of finding global minimum than batch gradient descent. 
+  ### Algorithm Steps:
+- Pick one random instance from the training dataset.
+- Compute the gradient of the cost function using the selected data point.
+- Update the parameters in the opposite direction of the gradient.
+- Repeat until convergence.
+
+## 3. Mini-Batch Gradient Descent
+ It's compromise between batch gradient descent and stochastic gradient descent. It uses small batch (typically 32, 64, or 128 samples) of training instances at each step. It will find better convergence than SGD and computationally faster.
+  ### Algorithm Steps:
+- Randomly select small batch of data (e.g 32, 64, 128 samples) from training dataset.
+- Compute the gradient of the cost function using the selected data point.
+- Update the parameters in the opposite direction of the gradient.
+- Repeat until convergence.
+
+## Conclution
+The choice between these variants depents on factor like the size of the dataset, computational resources, and trade off between accuracy and efficiency.
+- **Batch Gradient Descent**: Accurate, but computationally expensive. It is not suitable for large dataset.
+- **Stochastic Gradient Descent**: Fast, but less accurate. It is suitable for large dataset.
+- **Mini-Batch Gradient Descent**: It is compromise between batch gradient descent and stochastic gradient descent. It is suitable for large dataset.
