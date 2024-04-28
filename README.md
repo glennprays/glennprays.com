@@ -1,5 +1,5 @@
-[![ESLint on Develop Push](https://github.com/glennprays/glennprays.github.io/actions/workflows/lint.yml/badge.svg)](https://github.com/glennprays/glennprays.github.io/actions/workflows/lint.yml)
-[![Deploy Next.js site to Pages](https://github.com/glennprays/glennprays.github.io/actions/workflows/nextjs.yml/badge.svg)](https://github.com/glennprays/glennprays.github.io/actions/workflows/nextjs.yml)  
+[![ESLint on Develop Push](https://github.com/glennprays/glennprays.com/actions/workflows/lint.yml/badge.svg)](https://github.com/glennprays/glennprays.com/actions/workflows/lint.yml)
+[![Deploy Next.js site to Pages](https://github.com/glennprays/glennprays.com/actions/workflows/nextjs.yml/badge.svg)](https://github.com/glennprays/glennprays.com/actions/workflows/nextjs.yml)  
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
