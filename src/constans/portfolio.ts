@@ -67,7 +67,7 @@ export const portfolioItems: PortfolioItem[] = [
         tumbnail: personalWebsite,
         stacks: getSkillItems(["Next JS", "Typescript", "Tailwind", "Framer", "Contentlayer"]),
         description: "This is my personal website",
-        url: "https://github.com/glennprays/glennprays.github.io",
+        url: "https://github.com/glennprays/glennprays.com",
     },
     {
         title: "3rd IPAC 2023",
@@ -75,7 +75,7 @@ export const portfolioItems: PortfolioItem[] = [
         stacks: getSkillItems(["React JS", "Javascript", "Bootstrap", "Vite"]),
         description:
             "As a Frontend Web Developer, I have contributed my expertise to the development web applications tailored for registration, operational management, and service provisioning during the 3rd Indonesia Pathfinder Camporee in 2023. My role encompassed the creation of dynamic and user-centric interfaces, ensuring seamless navigation and optimal user experiences for attendees and stakeholders alike.",
-        url: "https://glennprays.tech/files/portfolio-3ipac.pdf",
+        url: "https://glennprays.com/files/portfolio-3ipac.pdf",
     },
     {
         title: "Movie Ticketin API",

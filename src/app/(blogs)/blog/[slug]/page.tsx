@@ -25,7 +25,7 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
     const filePath = path.join("public", fileUrl);
 
     const og = `
-    <div style="width: 1200px; height: 630px; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; background-image: url('https://glennprays.tech/images/blog-cover.png'); background-size: cover;">
+    <div style="width: 1200px; height: 630px; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; background-image: url('https://glennprays.com/images/blog-cover.png'); background-size: cover;">
         <span style="position: absolute; z-index: 20; font-family: monospace; font-size: 75px; font-weight: bolder; word-spacing: -20px; color: white; margin-left: 40px; margin-right: 40px;">
             ${shortTitle}
         </span>
