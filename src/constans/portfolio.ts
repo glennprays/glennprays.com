@@ -18,6 +18,7 @@ import tributePage from "public/images/portfolio/tribute-page.png";
 import findYourLove from "public/images/portfolio/find-your-love.png";
 import cariQuy from "public/images/portfolio/cari-aja-quy.png";
 import dengerin from "public/images/portfolio/dengerin-music-discovery.png";
+import { filesHostName } from "./general";
 
 
 export interface PortfolioItem {
@@ -75,7 +76,7 @@ export const portfolioItems: PortfolioItem[] = [
         stacks: getSkillItems(["React JS", "Javascript", "Bootstrap", "Vite"]),
         description:
             "As a Frontend Web Developer, I have contributed my expertise to the development web applications tailored for registration, operational management, and service provisioning during the 3rd Indonesia Pathfinder Camporee in 2023. My role encompassed the creation of dynamic and user-centric interfaces, ensuring seamless navigation and optimal user experiences for attendees and stakeholders alike.",
-        url: "https://glennprays.com/files/portfolio-3ipac.pdf",
+        url: filesHostName + "/portfolio-3ipac.pdf",
     },
     {
         title: "Movie Ticketin API",
