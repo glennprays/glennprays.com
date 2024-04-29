@@ -1,23 +1,24 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { stackList, SkillItem } from "./skills";
-import personalWebsite from "public/images/portfolio/personal-website.png";
-import ipac from "public/images/portfolio/3ipac.png";
-import quoteGenerator from "public/images/portfolio/quote-generator.png";
-import pomodoroTimer from "public/images/portfolio/pomodoro-timer.png";
-import markdownPreviewer from "public/images/portfolio/markdown-previewer.png";
-import calculator from "public/images/portfolio/calculator.png";
-import drumMachine from "public/images/portfolio/drum-machine.png";
-import tixid from "public/images/portfolio/tix-id.png";
-import twitterClone from "public/images/portfolio/twitter-clone.png";
-import trafficSignDetection from "public/images/portfolio/traffic-sign-detection.png";
-import documentationPage from "public/images/portfolio/documentation-page.png";
-import productLanding from "public/images/portfolio/product-landing.png";
-import sentimentAnalysis from "public/images/portfolio/sentimen-analysis.png";
-import surveyForm from "public/images/portfolio/survey-form.png";
-import tributePage from "public/images/portfolio/tribute-page.png";
-import findYourLove from "public/images/portfolio/find-your-love.png";
-import cariQuy from "public/images/portfolio/cari-aja-quy.png";
-import dengerin from "public/images/portfolio/dengerin-music-discovery.png";
+import personalWebsite from "public/images/portfolio/personal-website.jpg";
+import ipac from "public/images/portfolio/3ipac.jpg";
+import quoteGenerator from "public/images/portfolio/quote-generator.jpg";
+import pomodoroTimer from "public/images/portfolio/pomodoro-timer.jpg";
+import markdownPreviewer from "public/images/portfolio/markdown-previewer.jpg";
+import calculator from "public/images/portfolio/calculator.jpg";
+import drumMachine from "public/images/portfolio/drum-machine.jpg";
+import tixid from "public/images/portfolio/tix-id.jpg";
+import twitterClone from "public/images/portfolio/twitter-clone.jpg";
+import trafficSignDetection from "public/images/portfolio/traffic-sign-detection.jpg";
+import documentationPage from "public/images/portfolio/documentation-page.jpg";
+import productLanding from "public/images/portfolio/product-landing.jpg";
+import sentimentAnalysis from "public/images/portfolio/sentimen-analysis.jpg";
+import surveyForm from "public/images/portfolio/survey-form.jpg";
+import tributePage from "public/images/portfolio/tribute-page.jpg";
+import findYourLove from "public/images/portfolio/find-your-love.jpg";
+import cariQuy from "public/images/portfolio/cari-aja-quy.jpg";
+import dengerin from "public/images/portfolio/dengerin-music-discovery.jpg";
+import cariHati from "public/images/portfolio/cari-hati.jpg"
 import { filesHostName } from "./general";
 
 
@@ -44,6 +45,12 @@ function getSkillItems(skillList: string[]): SkillItem[] {
 }
 
 export const portfolioItems: PortfolioItem[] = [
+    {   title: "Cari Hati Dating App",
+        tumbnail: cariHati,
+        stacks: getSkillItems(["Nest JS", "Next JS", "PostgreSQL", "MongoDB", "Redis", "Nginx"]),
+        description: "Cari Hati, like Tinder, used PostgreSQL, MongoDB, and Redis databases to boost efficiency, while Xendit ensured smooth transactions and K-Means enabled precise matchmaking.",
+        url: "https://github.com/glennprays/cari-hati-server",
+    },
     {   title: "Dengerin Music Discovery",
         tumbnail: dengerin,
         stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
