@@ -14,12 +14,6 @@ export const metadata = {
     title: {
         default: "Homepage",
         template: `%s | glennprays;`,
-        keywords: [
-            "Glenn Pray Sabbatico Matthew",
-            "Glenn Pray Website",
-            "Glenn Pray Sagala",
-            "glennprays",
-        ],
     },
     description:
         "Hello, i'm Glenn Pray. Here, you will find a comprehensive collection of my professional journey, including my resume, portfolio, showcased projects, and blog posts.",

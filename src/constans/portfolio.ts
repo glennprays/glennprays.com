@@ -60,6 +60,7 @@ export const portfolioItems: PortfolioItem[] = [
         stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
         description: "Introducing a  Music Discovery Web Application (API and user-friendly interface). The platform is enhanced with Google API integration for song detection.",
         resourceUrl: "https://github.com/glennprays/music-discovery-server",
+        moreUrl: filesHostName + "/portfolio/portfolio-dengerin-music-discovery.pdf",
     },
     {
         title: "Cari Quy Search Engine",
@@ -67,6 +68,7 @@ export const portfolioItems: PortfolioItem[] = [
         stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
         description: "Cari Quy is a search engine that utilizes TF-IDF and Cosine Similarity methods for information retrieval.",
         resourceUrl: "https://github.com/glennprays/search-engine-server",
+        moreUrl: filesHostName + "/portfolio/portfolio-cari-aja-quy.pdf",
     },
     {
         title: "Find Your Love AI",
