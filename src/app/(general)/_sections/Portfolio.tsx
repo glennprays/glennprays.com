@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import personalwebsite from "public/images/portfolio/personal-website.png";
 import { BiSolidRightArrowCircle, BiCodeAlt } from "react-icons/bi";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { MdMoreHoriz } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { portfolioItems, PortfolioItem } from "@/constans/portfolio";
 import BackdropModal from "@/components/modal/BackdropModal";
@@ -56,9 +56,8 @@ export default function Portfolio() {
     return (
         <div
             id="portfolio"
-            className={`container mx-auto flex flex-col items-center justify-start py-20 gap-5 overflow-y-hidden transition-all relative ${
-                open ? "h-fit" : "h-screen"
-            }`}
+            className={`container mx-auto flex flex-col items-center justify-start py-20 gap-5 overflow-y-hidden transition-all relative ${open ? "h-fit" : "h-screen"
+                }`}
         >
             <h2 className="text-5xl font-bold">Portfolio</h2>
             <div id="portfolio-content">
@@ -70,9 +69,8 @@ export default function Portfolio() {
             </div>
             <div className="p-10 h-32 w-full absolute bottom-0 bg-gradient-to-t from-neutral-200 dark:from-neutral-900 to-transparent flex justify-center items-center">
                 <button
-                    className={`rounded-full py-1 px-3 text-white text-lg font-medium bg-sky-600 dark:bg-orange-600 flex gap-1 items-center ${
-                        overflow ? "visible" : "invisible"
-                    }`}
+                    className={`rounded-full py-1 px-3 text-white text-lg font-medium bg-sky-600 dark:bg-orange-600 flex gap-1 items-center ${overflow ? "visible" : "invisible"
+                        }`}
                     onClick={handleOpen}
                 >
                     {open ? (
@@ -91,7 +89,7 @@ export default function Portfolio() {
 }
 
 const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
-    const { title, tumbnail, stacks, description, url } = item;
+    const { title, tumbnail, stacks, description, resourceUrl, moreUrl } = item;
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -126,13 +124,29 @@ const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
                             </div>
                         </div>
                     </div>
-                    <Link href={url} target="_blank" className="pb-0 pt-4 bg-neutral-200 dark:bg-neutral-900 border-t-2 border-neutral-400 dark:border-neutral-500 w-full flex justify-end">
-                        <button className="rounded-full py-2 xl:py-2 px-3 text-sm xl:text-lg font-semibold bg-sky-600 hover:bg-sky-800 dark:bg-orange-600 dark:hover:bg-orange-800 text-white flex gap-1 items-center">
-                            Resource <BiCodeAlt />
-                        </button>
-                    </Link>
+                    <div className="flex justify-end items-center gap-3 bg-neutral-200 border-t-2 border-neutral-400 dark:border-neutral-500 w-full dark:bg-neutral-900">
+
+                        {
+                            moreUrl &&
+                            <Link href={moreUrl} target="_blank" className="pb-0 pt-4 flex justify-end">
+                                <button className="rounded-full py-2 xl:py-2 px-3 text-sm xl:text-lg font-semibold bg-sky-600 hover:bg-sky-800 dark:bg-orange-600 dark:hover:bg-orange-800 text-white flex gap-1 items-center">
+                                    More <MdMoreHoriz />
+                                </button>
+                            </Link>
+                        }
+                        {
+                            resourceUrl &&
+                            <Link href={resourceUrl} target="_blank" className="pb-0 pt-4 flex justify-end">
+                                <button className="rounded-full py-2 xl:py-2 px-3 text-sm xl:text-lg font-semibold bg-sky-600 hover:bg-sky-800 dark:bg-orange-600 dark:hover:bg-orange-800 text-white flex gap-1 items-center">
+                                    Resource <BiCodeAlt />
+                                </button>
+                            </Link>
+                        }
+
+
+                    </div>
                 </div>
-            </BackdropModal>
+            </BackdropModal >
             <div className="w-[295px] sm:w-[390px] py-7 px-5 sm:px-8 border mx-auto shadow-md border-slate-400 dark:border-zinc-800 dark:shadow-zinc-800 rounded-xl flex flex-col items-center gap-3 cursor-pointer">
                 <div className="w-[240px] h-[130px] sm:w-[320px] sm:h-[185px] rounded-md overflow-hidden border-2 border-slate-500 dark:border-zinc-800 relative select-none">
                     <Image src={tumbnail} alt={title} fill />
