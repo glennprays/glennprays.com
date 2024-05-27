@@ -46,9 +46,8 @@ export default function BackdropModal({
     }
     return (
         <div
-            className={`w-full h-screen fixed top-0 left-0 z-[100] bg-neutral-400/[0.7] dark:bg-black/[0.75] flex justify-center items-center ${
-                open ? "visible" : "invisible"
-            }`}
+            className={`w-full h-screen fixed top-0 left-0 z-[100] bg-neutral-400/[0.7] dark:bg-black/[0.75] flex justify-center items-center ${open ? "visible" : "invisible"
+                }`}
         >
             <div
                 ref={childRef}
@@ -69,10 +68,3 @@ export default function BackdropModal({
         </div>
     );
 }
-
-BackdropModal.defaultProps = {
-    open: false,
-    closeButton: true,
-    setOpen: () => null,
-    backdropActive: false,
-};
