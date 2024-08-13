@@ -19,6 +19,7 @@ import findYourLove from "public/images/portfolio/find-your-love.jpg";
 import cariQuy from "public/images/portfolio/cari-aja-quy.jpg";
 import dengerin from "public/images/portfolio/dengerin-music-discovery.jpg";
 import cariHati from "public/images/portfolio/cari-hati.jpg"
+import dbEaseBackup from "public/images/portfolio/dbeasebackup.jpg"
 import { filesHostName } from "./general";
 
 
@@ -46,6 +47,13 @@ function getSkillItems(skillList: string[]): SkillItem[] {
 }
 
 export const portfolioItems: PortfolioItem[] = [
+    {
+        title: "DBEase Backup",
+        tumbnail: dbEaseBackup,
+        stacks: getSkillItems(["Golang"]),
+        description: "DBEaseBackup is a Go-powered tool that automates secure database backups, enabling scheduled storage to ensure your data is consistently protected and easily accessible when needed.",
+        resourceUrl: "https://github.com/glennprays/dbeasebackup"
+    },
     {
         title: "Cari Hati Dating App",
         tumbnail: cariHati,
