@@ -63,6 +63,7 @@ function SuggestionToggle({
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const delayTime = 500;
@@ -81,6 +82,7 @@ function SuggestionToggle({
             setOpen(false);
             setSuggestions([]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
     const allBlogsData = allBlogs.map(
@@ -120,9 +122,8 @@ function SuggestionToggle({
 function SuggestionItem({ blog, index }: { blog: blogData; index: number }) {
     return (
         <div
-            className={`py-1 px-4 w-full border-neutral-950 dark:border-neutral-600 text-sm hover:bg-neutral-300 hover:dark:bg-neutral-700 ${
-                index > 0 ? "border-t-[0.01px]" : null
-            }`}
+            className={`py-1 px-4 w-full border-neutral-950 dark:border-neutral-600 text-sm hover:bg-neutral-300 hover:dark:bg-neutral-700 ${index > 0 ? "border-t-[0.01px]" : null
+                }`}
         >
             <Link href={blog.url} target="_top" className="line-clamp-2">
                 {blog.title}

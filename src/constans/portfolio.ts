@@ -2,19 +2,10 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { stackList, SkillItem } from "./skills";
 import personalWebsite from "public/images/portfolio/personal-website.jpg";
 import ipac from "public/images/portfolio/3ipac.jpg";
-import quoteGenerator from "public/images/portfolio/quote-generator.jpg";
-import pomodoroTimer from "public/images/portfolio/pomodoro-timer.jpg";
-import markdownPreviewer from "public/images/portfolio/markdown-previewer.jpg";
-import calculator from "public/images/portfolio/calculator.jpg";
-import drumMachine from "public/images/portfolio/drum-machine.jpg";
 import tixid from "public/images/portfolio/tix-id.jpg";
 import twitterClone from "public/images/portfolio/twitter-clone.jpg";
 import trafficSignDetection from "public/images/portfolio/traffic-sign-detection.jpg";
-import documentationPage from "public/images/portfolio/documentation-page.jpg";
-import productLanding from "public/images/portfolio/product-landing.jpg";
 import sentimentAnalysis from "public/images/portfolio/sentimen-analysis.jpg";
-import surveyForm from "public/images/portfolio/survey-form.jpg";
-import tributePage from "public/images/portfolio/tribute-page.jpg";
 import findYourLove from "public/images/portfolio/find-your-love.jpg";
 import cariQuy from "public/images/portfolio/cari-aja-quy.jpg";
 import dengerin from "public/images/portfolio/dengerin-music-discovery.jpg";
@@ -132,77 +123,5 @@ export const portfolioItems: PortfolioItem[] = [
         description:
             "This project presents a sophisticated sentiment analysis implementation utilizing Convolutional Neural Networks (CNN) to analyze and classify sentiments expressed in US airlines' Twitter data. The objective is to harness the power of deep learning techniques to categorize tweets as positive, negative, or neutral sentiments, thereby gaining valuable insights into customer opinions and experiences.",
         resourceUrl: "https://github.com/glennprays/CNN-Sentiment-Analysis",
-    },
-    {
-        title: "Quote Generator",
-        tumbnail: quoteGenerator,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap"]),
-        description:
-            'This project entails the creation of a "Random Quote Generator" utilizing an array of quotes. With each interaction, the application will present a randomly selected quote from the array to users',
-        resourceUrl: "https://codepen.io/glennpray/pen/oNJNZRv",
-    },
-    {
-        title: "Pomodoro Timer",
-        tumbnail: pomodoroTimer,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap"]),
-        description:
-            'This timer application is designed based on the Pomodoro technique, offering two distinct timer modes: "Session" and "Break". The default duration for a session is set to 25 minutes, while the break interval is set to 5 minutes. However, users have the flexibility to customize these durations according to their preferences.',
-        resourceUrl: "https://codepen.io/glennpray/pen/oNJNZRv",
-    },
-    {
-        title: "Markdown Previewer",
-        tumbnail: markdownPreviewer,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap"]),
-        description:
-            "This project serves the purpose of providing a interface for both previewing and editing Markdown text. It empowers users to create, modify, and visualize Markdown documents with ease.",
-        resourceUrl: "https://codepen.io/glennpray/pen/YzdXZLd",
-    },
-    {
-        title: "Calculator",
-        tumbnail: calculator,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap"]),
-        description:
-            "This project a calculator application developed using the ReactJS. The primary objective behind this endeavor is to provide users with a feature-rich, dynamic, and visually appealing tool for performing calculations.",
-        resourceUrl: "https://codepen.io/glennpray/pen/ZEVGjqE",
-    },
-    {
-        title: "Drum Machine",
-        tumbnail: drumMachine,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap"]),
-        description:
-            "This project implementation of a drum application, designed to with the added versatility of two distinct sound groups.",
-        resourceUrl: "https://codepen.io/glennpray/pen/mdaJwWM",
-    },
-    {
-        title: "Documentation Page",
-        tumbnail: documentationPage,
-        stacks: getSkillItems(["HTML", "CSS"]),
-        description:
-            "Simple implementation of technical documentation page.",
-        resourceUrl: "https://codepen.io/glennpray/pen/WNZOaYR",
-    },
-    {
-        title: "Product Landing",
-        tumbnail: productLanding,
-        stacks: getSkillItems(["HTML", "CSS"]),
-        description:
-            "This is a simple implementation of Shoes Product landing page.",
-        resourceUrl: "https://codepen.io/glennpray/pen/qBPrQWd",
-    },
-    {
-        title: "Survey Form",
-        tumbnail: surveyForm,
-        stacks: getSkillItems(["HTML", "CSS"]),
-        description:
-            "This is a simple Survey Form aplication.",
-        resourceUrl: "https://codepen.io/glennpray/pen/KKXNRpa",
-    },
-    {
-        title: "Tribute Page",
-        tumbnail: tributePage,
-        stacks: getSkillItems(["HTML", "CSS"]),
-        description:
-            "Simple webpage of Artist Tribute Page.",
-        resourceUrl: "https://codepen.io/glennpray/pen/eYGZrrq",
     },
 ];
