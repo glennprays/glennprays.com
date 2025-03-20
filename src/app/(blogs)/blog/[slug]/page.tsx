@@ -36,7 +36,7 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
 `;
 
     const browser = await puppeteer.launch({
-        headless: "new",
+        headless: true,
     });
     const page = await browser.newPage();
 
