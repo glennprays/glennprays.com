@@ -54,7 +54,11 @@ jobs:
       #     node-version: "23"
       #     cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Install Node.js with Nix 
-        run: nix-env -iA nixpkgs.nodejs_23
+        run: |
+            nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+            nix-channel --update
+            nix-env -iA nixpkgs.nodejs-23
+        # run: nix-env -iA nixpkgs.nodejs_23
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
