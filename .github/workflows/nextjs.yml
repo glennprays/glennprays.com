@@ -37,7 +37,7 @@ jobs:
 
       - name: Install Node.js, install deps, build and export in Nix shell
         run: |
-          nix shell nixpkgs#nodejs_23 -c bash -c '
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes shell nixpkgs#nodejs_23 -c bash -c '
             echo "Node version: $(node -v)"
             echo "NPM version: $(npm -v)"
             npm ci
