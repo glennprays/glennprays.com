@@ -22,8 +22,7 @@ export default function HomePage() {
                 <motion.div
                     variants={Motions.textVariants(0.9)}
                     className='mt-5 w-10/12 max-lg:w-full'>
-                    <p>I&apos;m a undergraduate student of Informatics Engineering at <Link className='hover:text-cyan-500 dark:hover:text-amber-500' href=''>Institut Teknologi Harapan Bangsa</Link>. Passionate about technology and specializing in Software Engineering.</p>
-                    <p>I&apos;m dedicated to developing my skills and seeking growth opportunities. I approach challenges practically, aiming to enhance my expertise and contribute to the ever-changing tech field.</p>
+                    <p>Software Engineering enthusiast with a practical mindset and a strong drive for continuous growth. Experienced in building scalable and efficient software systems. Passionate about solving real-world problems through technology and always eager to take on new challenges in the ever-evolving tech industry.</p>
                 </motion.div>
             </motion.div>
             <motion.div
