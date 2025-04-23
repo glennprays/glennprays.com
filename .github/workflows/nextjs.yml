@@ -57,7 +57,7 @@ jobs:
         run: |
             nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
             nix-channel --update
-            nix-env -iA nixpkgs.nodejs-23
+            nix-env -iA nixpkgs.nodejs_23
         # run: nix-env -iA nixpkgs.nodejs_23
       - name: Setup Pages
         uses: actions/configure-pages@v3
