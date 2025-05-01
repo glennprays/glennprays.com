@@ -41,6 +41,9 @@ jobs:
             nix_path: nixpkgs=channel:nixos-unstable
       - name: Install dependencies, build, and export
         run: |
+            export TMPDIR=$GITHUB_WORKSPACE/runner-tmp 
+            mkdir -p $TMPDIR
+
             nix shell \
             --experimental-features 'nix-command flakes' \
             nixpkgs#nodejs_23 \
