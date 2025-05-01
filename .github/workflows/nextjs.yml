@@ -39,18 +39,30 @@ jobs:
         uses: cachix/install-nix-action@v22
         with:
             nix_path: nixpkgs=channel:nixos-unstable
-
       - name: Install dependencies, build, and export
         run: |
-            nix --extra-experimental-features 'nix-command flakes' shell nixpkgs#nodejs_23 nixpkgs#playwright nixpkgs#chromium --command bash -c '
-            echo "Node version: $(node -v)"
-            echo "NPM version: $(npm -v)"
-            export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
-            export PLAYWRIGHT_BROWSERS_PATH=$(nix eval --raw nixpkgs#playwright-driver.browsers)
-            npm ci
-            npx playwright install
-            npm run build
+            nix shell \
+            --experimental-features 'nix-command flakes' \
+            nixpkgs#nodejs_23 \
+            nixpkgs#playwright-core \
+            nixpkgs#chromium \
+            --command bash -c '
+                echo "Node version: $(node -v)"
+                echo "NPM version: $(npm -v)"
+
+                # Use system Chromium for Playwright
+                export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
+                export CHROMIUM_PATH=$(which chromium)
+                echo "Using system Chromium at: $CHROMIUM_PATH"
+
+                # Optionally tell your app where Chromium is
+                export CHROMIUM_EXECUTABLE_PATH=$CHROMIUM_PATH
+
+                # Install dependencies and build
+                npm ci
+                npm run build
             '
+
       - name: List files
         run: ls -alh
 

@@ -36,7 +36,10 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
     </div>
   `;
 
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({
+        executablePath: process.env.CHROMIUM_EXECUTABLE_PATH,
+        headless: true
+    });
     const page = await browser.newPage();
 
     // Set the viewport size to match the desired image dimensions
