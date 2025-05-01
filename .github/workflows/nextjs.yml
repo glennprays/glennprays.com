@@ -48,6 +48,7 @@ jobs:
             export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
             export PLAYWRIGHT_BROWSERS_PATH=$(nix eval --raw nixpkgs#playwright-driver.browsers)
             npm ci
+            npx playwright install
             npm run build
             '
       - name: List files
