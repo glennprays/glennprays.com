@@ -42,7 +42,7 @@ jobs:
 
       - name: Install dependencies, build, and export
         run: |
-            nix shell nixpkgs#nodejs_23 nixpkgs#playwright nixpkgs#chromium --command bash -c '
+            nix --extra-experimental-features nix-command shell nixpkgs#nodejs_23 nixpkgs#playwright nixpkgs#chromium --command bash -c '
             echo "Node version: $(node -v)"
             echo "NPM version: $(npm -v)"
             export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
