@@ -68,13 +68,10 @@ jobs:
             EOF
             echo "Created flake.nix inside shell-flake/"
 
-            # Now use nix shell referencing the packages via the explicit 'nixpkgs' input
-            # *** Use path: prefix here ***
-            nix shell \
-            --experimental-features 'nix-command flakes' \
-            path:./shell-flake#nixpkgs.nodejs_23 \
-            path:./shell-flake#nixpkgs.playwright-core \
-            path:./shell-flake#nixpkgs.chromium \
+            nix develop --extra-experimental-features "nix-command flakes" \
+            --no-write-lock-file \
+            --impure \
+            ./shell-flake \
             --command bash -c '
                 echo "Running inside nix shell..."
                 echo "Node version: $(node -v)"
