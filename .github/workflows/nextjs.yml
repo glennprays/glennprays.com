@@ -50,7 +50,8 @@ jobs:
 
             # --- Start of Nix Flake fix ---
             # Create a temporary flake.nix to explicitly use the latest nixos-unstable branch
-            cat > shell-flake.nix <<EOF
+            mkdir -p shell-flake
+            cat > shell-flake/shell-flake.nix <<EOF
             {
               inputs = {
                 # Use the latest nixos-unstable branch for nixpkgs
@@ -62,7 +63,7 @@ jobs:
             echo "Created temporary shell-flake.nix"
 
             # Ensure the flake inputs are up-to-date (fetches the latest nixos-unstable)
-            nix flake update --flake ./shell-flake.nix --extra-experimental-features 'nix-command flakes'
+            nix flake update --flake ./shell-flake --extra-experimental-features 'nix-command flakes'
             echo "Updated shell-flake.nix inputs"
 
             # Now use nix shell referencing the packages via the explicit 'nixpkgs' input
@@ -91,7 +92,7 @@ jobs:
             # --- End of Nix Flake fix ---
 
             # Clean up the temporary flake file
-            rm shell-flake.nix
+            rm -rf shell-flake
             echo "Cleaned up temporary shell-flake.nix"
 
       - name: List files
