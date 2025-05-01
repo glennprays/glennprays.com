@@ -29,6 +29,7 @@
         "next-mdx-remote": "^4.4.1",
         "next-share": "^0.25.0",
         "next-themes": "^0.2.1",
+        "playwright": "^1.52.0",
         "postcss": "8.4.27",
         "puppeteer": "22.8.2",
         "react": "18.2.0",
