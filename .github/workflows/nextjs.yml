@@ -70,8 +70,8 @@ jobs:
 
             # Ensure the flake inputs are up-to-date (fetches the latest nixos-unstable)
             # *** Use path: prefix here ***
-            nix flake update --flake path:./shell-flake --extra-experimental-features 'nix-command flakes'
-            echo "Updated flake inputs"
+            # nix flake update --flake path:./shell-flake --extra-experimental-features 'nix-command flakes'
+            # echo "Updated flake inputs"
 
             # Now use nix shell referencing the packages via the explicit 'nixpkgs' input
             # *** Use path: prefix here ***
