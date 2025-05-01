@@ -43,6 +43,7 @@ jobs:
       - name: Install dependencies, build, and export
         run: |
             # --- Start of TMPDIR fix (keep this) ---
+            # This will now correctly point to a location on your persistent disk
             export TMPDIR=$GITHUB_WORKSPACE/runner-tmp
             mkdir -p "$TMPDIR" # Use quotes for safety
             echo "Set TMPDIR to: $TMPDIR"
@@ -50,8 +51,7 @@ jobs:
 
             # --- Start of Nix Flake fix ---
             # Create a temporary flake.nix to explicitly use the latest nixos-unstable branch
-            mkdir -p shell-flake
-            cat > shell-flake/shell-flake.nix <<EOF
+            cat > shell-flake.nix <<EOF
             {
               inputs = {
                 # Use the latest nixos-unstable branch for nixpkgs
@@ -63,15 +63,17 @@ jobs:
             echo "Created temporary shell-flake.nix"
 
             # Ensure the flake inputs are up-to-date (fetches the latest nixos-unstable)
-            nix flake update --flake ./shell-flake --extra-experimental-features 'nix-command flakes'
+            # *** Use path: prefix here ***
+            nix flake update --flake path:./shell-flake.nix --extra-experimental-features 'nix-command flakes'
             echo "Updated shell-flake.nix inputs"
 
             # Now use nix shell referencing the packages via the explicit 'nixpkgs' input
+            # *** Use path: prefix here ***
             nix shell \
             --experimental-features 'nix-command flakes' \
-            ./shell-flake.nix#nixpkgs.nodejs_23 \
-            ./shell-flake.nix#nixpkgs.playwright-core \
-            ./shell-flake.nix#nixpkgs.chromium \
+            path:./shell-flake.nix#nixpkgs.nodejs_23 \
+            path:./shell-flake.nix#nixpkgs.playwright-core \
+            path:./shell-flake.nix#nixpkgs.chromium \
             --command bash -c '
                 echo "Running inside nix shell..."
                 echo "Node version: $(node -v)"
@@ -92,8 +94,8 @@ jobs:
             # --- End of Nix Flake fix ---
 
             # Clean up the temporary flake file
-            rm -rf shell-flake
-            echo "Cleaned up temporary shell-flake.nix"
+            rm shell-flake.nix shell-flake.lock # Also remove the lock file
+            echo "Cleaned up temporary shell-flake.nix and shell-flake.lock"
 
       - name: List files
         run: ls -alh
