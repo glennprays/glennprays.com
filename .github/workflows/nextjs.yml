@@ -62,7 +62,7 @@ jobs:
             echo "Created temporary shell-flake.nix"
 
             # Ensure the flake inputs are up-to-date (fetches the latest nixos-unstable)
-            nix flake update --flake ./shell-flake.nix
+            nix flake update --flake ./shell-flake.nix --extra-experimental-features 'nix-command flakes'
             echo "Updated shell-flake.nix inputs"
 
             # Now use nix shell referencing the packages via the explicit 'nixpkgs' input
