@@ -54,11 +54,16 @@ jobs:
             mkdir -p shell-flake
             cat > shell-flake/flake.nix <<EOF
             {
-              inputs = {
-                # Use the latest nixos-unstable branch for nixpkgs
-                nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-              };
-              outputs = { self, nixpkgs };
+                inputs = {
+                    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+                };
+                outputs = { self, nixpkgs }: {
+                    packages.x86_64-linux = {
+                    nodejs_23 = nixpkgs.legacyPackages.x86_64-linux.nodejs_23;
+                    playwright-core = nixpkgs.legacyPackages.x86_64-linux.playwright-core;
+                    chromium = nixpkgs.legacyPackages.x86_64-linux.chromium;
+                    };
+                };
             }
             EOF
             echo "Created flake.nix inside shell-flake/"
