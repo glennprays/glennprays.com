@@ -48,31 +48,15 @@ jobs:
             mkdir -p "$TMPDIR" # Use quotes for safety
             echo "Set TMPDIR to: $TMPDIR"
             # --- End of TMPDIR fix ---
+            #
 
-            # --- Start of Nix Flake fix ---
-            # Create a temporary flake.nix to explicitly use the latest nixos-unstable branch
-            mkdir -p shell-flake
-            cat > shell-flake/flake.nix <<EOF
-            {
-                inputs = {
-                    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-                };
-                outputs = { self, nixpkgs }: {
-                    packages.x86_64-linux = {
-                    nodejs_23 = nixpkgs.legacyPackages.x86_64-linux.nodejs_23;
-                    playwright-core = nixpkgs.legacyPackages.x86_64-linux.playwright-core;
-                    chromium = nixpkgs.legacyPackages.x86_64-linux.chromium;
-                    };
-                };
-            }
-            EOF
-            echo "Created flake.nix inside shell-flake/"
-
-            nix develop --extra-experimental-features "nix-command flakes" \
-            --no-write-lock-file \
-            --impure \
-            ./shell-flake \
-            --command bash -c '
+            nix shell \
+                nixpkgs#nodejs_20 \
+                nixpkgs#playwright-core \
+                nixpkgs#chromium \
+                --extra-experimental-features "nix-command flakes" \
+                --impure \
+                --command bash -c '
                 echo "Running inside nix shell..."
                 echo "Node version: $(node -v)"
                 echo "NPM version: $(npm -v)"
