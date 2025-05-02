@@ -50,7 +50,6 @@ jobs:
             # Start Nix shell with dependencies
             nix shell \
             nixpkgs#nodejs_20 \
-            nixpkgs#puppeteer \
             nixpkgs#chromium \
             nixpkgs#noto-fonts \
             nixpkgs#nss \
