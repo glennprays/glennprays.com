@@ -114,10 +114,9 @@ jobs:
         run: ls -alh
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          overwrite: true
           path: ./out # Ensure this matches your Next.js export directory, typically 'out'
 
   deploy:
