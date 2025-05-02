@@ -52,7 +52,7 @@ jobs:
 
             nix shell \
                 nixpkgs#nodejs_20 \
-                nixpkgs#playwright-core \
+                nixpkgs#playwright \
                 nixpkgs#chromium \
                 --extra-experimental-features "nix-command flakes" \
                 --impure \

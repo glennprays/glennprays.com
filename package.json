@@ -45,6 +45,7 @@
         "typewriter-effect": "^2.20.1"
     },
     "devDependencies": {
+        "playwright": "^1.52.0",
         "cypress": "^13.3.0"
     }
 }
