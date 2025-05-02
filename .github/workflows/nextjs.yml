@@ -55,7 +55,7 @@ jobs:
             nixpkgs#cups \
             nixpkgs#libGL \
             nixpkgs#nss \
-            nixpkgs#fontconfig-minimal \
+            nixpkgs#fontconfig \
             nixpkgs#dbus \
             nixpkgs#at-spi2-atk \
             nixpkgs#gtk3 \
