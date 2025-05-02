@@ -72,7 +72,8 @@ jobs:
             libgl1 \
             libxcomposite1 \
             libxrandr2 \
-            libxi6
+            libxi6 \
+            libasound2
 
       # --- MODIFIED: Install dependencies, build, and export ---
       # Replaces the Nix shell command with standard shell execution
