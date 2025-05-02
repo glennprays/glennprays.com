@@ -70,7 +70,6 @@ jobs:
             libxkbcommon0 \
             libatspi2.0-0 \
             libgbm1 \
-            libxdg-utils \
             libgl1 # Added libgl1 as it was in your Nix list
 
       # --- MODIFIED: Install dependencies, build, and export ---
