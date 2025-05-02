@@ -49,20 +49,8 @@ jobs:
 
             # Start Nix shell with dependencies
             nix shell \
-            nixpkgs#nodejs_20 \
+            nixpkgs#nodejs_23 \
             nixpkgs#chromium \
-            nixpkgs#noto-fonts \
-            nixpkgs#nss \
-            nixpkgs#freetype \
-            nixpkgs#fontconfig \
-            nixpkgs#cairo \
-            nixpkgs#pango \
-            nixpkgs#harfbuzz \
-            nixpkgs#libdrm \
-            nixpkgs#mesa \
-            nixpkgs#glib \
-            nixpkgs#expat \
-            nixpkgs#libx11 \
             --extra-experimental-features "nix-command flakes" \
             --impure \
             --command bash -c '
