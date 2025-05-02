@@ -36,9 +36,12 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
     </div>
   `;
 
+    console.log(`Generating Open Graph image for ${shortTitle}...`);
+    console.log("chromium executable path", process.env.CHROMIUM_EXECUTABLE_PATH);
     const browser = await chromium.launch({
         executablePath: process.env.CHROMIUM_EXECUTABLE_PATH,
-        headless: true
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browser.newPage();
 
