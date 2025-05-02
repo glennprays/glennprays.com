@@ -10,7 +10,7 @@ export default function HomePage() {
             viewport={{ once: true, amount: 0.55 }}
             whileInView="show"
             initial="hidden"
-            className="container min-h-[calc(100vh-95px)] sm:w-8/12 mx-auto flex flex-col items-center xl:flex-row xl:items-start xl:pt-28">
+            className="container min-h-[calc(100vh-150px)] sm:w-8/12 mx-auto flex flex-col items-center justify-center xl:flex-row xl:items-start xl:pt-[180px]">
             <motion.div
                 className='flex flex-col w-full xl:w-8/12'>
                 <motion.span
@@ -27,7 +27,7 @@ export default function HomePage() {
             </motion.div>
             <motion.div
                 variants={Motions.slideIn("right", "tween", 0.9, 1)}
-                className='w-80 xl:w-96 flex items-center justify-center '>
+                className='w-80 xl:w-96 flex items-center justify-center'>
                 <svg className=' fill-cyan-600 dark:fill-amber-500' viewBox="0 -12 220 220" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" >
                     <mask id="mask0" mask-type="alpha">
                         <path d="M 190.312 36.4879 C 228 87 201.309 102.826 182.328 134.186 C 163.346 165.547 130.807 187.559 100.226 186.353 C 69.6454 185.297 12 172 21.7403 129.362 C 28 107 17 58 6.6758 34.5279 C 2 17 21 -16 97.9666 0.0016 C 134 13 174.193 10.857 190.312 36.4879 Z"></path>
