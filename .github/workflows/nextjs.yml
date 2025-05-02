@@ -63,14 +63,14 @@ jobs:
 
                 # Use system Chromium for Playwright
                 export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
-                export CHROMIUM_PATH=$(which chromium)
+                export CHROMIUM_PATH=$(command -v chromium)
                 echo "Using system Chromium at: $CHROMIUM_PATH"
 
                 # Optionally tell your app where Chromium is
                 export CHROMIUM_EXECUTABLE_PATH=$CHROMIUM_PATH
 
                 # Install dependencies and build
-                npm ci
+                npm ci --loglevel verbose
                 npm run build
             '
             # --- End of Nix Flake fix ---
