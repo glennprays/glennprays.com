@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: self-hosted 
 
     steps:
       - name: Checkout repository
@@ -35,54 +35,78 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
-        with:
-            nix_path: nixpkgs=channel:nixos-unstable
+      # --- REMOVE: Nix installation step ---
+      # - name: Install Nix
+      #   uses: cachix/install-nix-action@v22
+      #   with:
+      #       nix_path: nixpkgs=channel:nixos-unstable
 
+      # --- ADD: Standard Node.js setup ---
+      # This action sets up Node.js from the standard distribution
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*' # Use the latest LTS version, or specify '20.x' etc.
+
+      # --- ADD: Install system dependencies for Chromium/Puppeteer ---
+      # This assumes your self-hosted runner is a Linux distribution (like Debian/Ubuntu)
+      # and you have sudo access to install packages.
+      # The packages listed cover common dependencies for headless Chrome/Puppeteer.
+      # Adjust package names if your runner uses a different package manager (e.g., yum, pacman).
+      - name: Install Chromium and dependencies (for Puppeteer)
+        run: |
+          # Update package lists
+          sudo apt-get update
+          # Install chromium-browser and common dependencies required for headless execution
+          # This list is based on common requirements and packages mentioned in your Nix list
+          sudo apt-get install -y \
+            chromium-browser \
+            libnss3 \
+            libfontconfig1 \
+            libdbus-1-3 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libcups2 \
+            libxkbcommon0 \
+            libatspi2.0-0 \
+            libgbm1 \
+            libxdg-utils \
+            libgl1 # Added libgl1 as it was in your Nix list
+
+      # --- MODIFIED: Install dependencies, build, and export ---
+      # Replaces the Nix shell command with standard shell execution
       - name: Install dependencies, build, and export
         run: |
             # --- TMPDIR fix (keep this) ---
+            # This is not Nix-specific and might still be needed in constrained environments.
             export TMPDIR=$GITHUB_WORKSPACE/runner-tmp
             mkdir -p "$TMPDIR"
             echo "Set TMPDIR to: $TMPDIR"
 
-            # Start Nix shell with dependencies
-            nix shell \
-            nixpkgs#nodejs_23 \
-            nixpkgs#chromium \
-            nixpkgs#alsa-lib \
-            nixpkgs#cups \
-            nixpkgs#libGL \
-            nixpkgs#nss \
-            nixpkgs#fontconfig \
-            nixpkgs#dbus \
-            nixpkgs#at-spi2-atk \
-            nixpkgs#gtk3 \
-            nixpkgs#xdg-utils \
-            --extra-experimental-features "nix-command flakes" \
-            --impure \
-            --command bash -c '
-                echo "Running inside nix shell..."
-                echo "Node version: $(node -v)"
-                echo "NPM version: $(npm -v)"
+            # --- Puppeteer Configuration (using system installed Chromium) ---
+            # Find the executable path of the system-installed chromium-browser or chromium
+            # command -v searches the system's PATH
+            CHROMIUM_PATH=$(command -v chromium-browser || command -v chromium || echo "/usr/bin/chromium")
+            # Set PUPPETEER_SKIP_DOWNLOAD to true so it doesn't try to download
+            export PUPPETEER_SKIP_DOWNLOAD=true
+            # Point Puppeteer and your script (via CHROMIUM_EXECUTABLE_PATH) to the system browser
+            export PUPPETEER_EXECUTABLE_PATH="$CHROMIUM_PATH"
+            export CHROMIUM_EXECUTABLE_PATH="$CHROMIUM_PATH" # This matches your Node.js code variable
+            echo "Using Chromium at: $CHROMIUM_EXECUTABLE_PATH"
 
-                # Set Puppeteer to use system Chromium
-                export PUPPETEER_SKIP_DOWNLOAD=true
-                export PUPPETEER_EXECUTABLE_PATH=$(command -v chromium)
-                export CHROMIUM_EXECUTABLE_PATH=$PUPPETEER_EXECUTABLE_PATH
-                echo "Using Chromium at: $PUPPETEER_EXECUTABLE_PATH"
+            # --- Fontconfig configuration ---
+            # When installing fontconfig via apt-get, system configuration is usually handled.
+            # Explicitly setting FONTCONFIG_PATH and FONTCONFIG_FILE is usually not necessary
+            # outside of a Nix shell or minimal environment, and can be removed here.
+            # Removed: export FONTCONFIG_PATH=...
+            # Removed: export FONTCONFIG_FILE=...
+            # Removed: mkdir/ln commands
 
-                # Add required fontconfig configuration (might be needed)
-                export FONTCONFIG_PATH=/etc/fonts
-                export FONTCONFIG_FILE=/etc/fonts/fonts.conf
-                mkdir -p $FONTCONFIG_PATH
-                ln -s ${nixpkgs.fontconfig-minimal.out}/etc/fonts/fonts.conf $FONTCONFIG_FILE || true # Ignore if link exists
+            # Install Node.js dependencies using npm ci (clean install)
+            npm ci --loglevel verbose
 
-                # Install and build
-                npm ci --loglevel verbose
-                npm run build
-            '
+            # Run the Next.js build script
+            npm run build
 
       - name: List files
         run: ls -alh
@@ -90,16 +114,17 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: ./out
+          path: ./out # Ensure this matches your Next.js export directory, typically 'out'
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: self-hosted
+    runs-on: self-hosted # Your self-hosted runner
     needs: build
 
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        # The artifact is automatically retrieved by actions/deploy-pages
