@@ -51,6 +51,15 @@ jobs:
             nix shell \
             nixpkgs#nodejs_23 \
             nixpkgs#chromium \
+            nixpkgs#alsa-lib \
+            nixpkgs#cups \
+            nixpkgs#libGL \
+            nixpkgs#nss \
+            nixpkgs#fontconfig-minimal \
+            nixpkgs#dbus \
+            nixpkgs#at-spi2-atk \
+            nixpkgs#gtk3 \
+            nixpkgs#xdg-utils \
             --extra-experimental-features "nix-command flakes" \
             --impure \
             --command bash -c '
@@ -59,9 +68,16 @@ jobs:
                 echo "NPM version: $(npm -v)"
 
                 # Set Puppeteer to use system Chromium
+                export PUPPETEER_SKIP_DOWNLOAD=true
                 export PUPPETEER_EXECUTABLE_PATH=$(command -v chromium)
                 export CHROMIUM_EXECUTABLE_PATH=$PUPPETEER_EXECUTABLE_PATH
                 echo "Using Chromium at: $PUPPETEER_EXECUTABLE_PATH"
+
+                # Add required fontconfig configuration (might be needed)
+                export FONTCONFIG_PATH=/etc/fonts
+                export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+                mkdir -p $FONTCONFIG_PATH
+                ln -s ${nixpkgs.fontconfig-minimal.out}/etc/fonts/fonts.conf $FONTCONFIG_FILE || true # Ignore if link exists
 
                 # Install and build
                 npm ci --loglevel verbose
