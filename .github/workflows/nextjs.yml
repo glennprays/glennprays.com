@@ -42,42 +42,44 @@ jobs:
 
       - name: Install dependencies, build, and export
         run: |
-            # --- Start of TMPDIR fix (keep this) ---
-            # This will now correctly point to a location on your persistent disk
+            # --- TMPDIR fix (keep this) ---
             export TMPDIR=$GITHUB_WORKSPACE/runner-tmp
-            mkdir -p "$TMPDIR" # Use quotes for safety
+            mkdir -p "$TMPDIR"
             echo "Set TMPDIR to: $TMPDIR"
-            # --- End of TMPDIR fix ---
-            #
 
+            # Start Nix shell with dependencies
             nix shell \
-                nixpkgs#nodejs_20 \
-                nixpkgs#playwright \
-                nixpkgs#chromium \
-                --extra-experimental-features "nix-command flakes" \
-                --impure \
-                --command bash -c '
+            nixpkgs#nodejs_20 \
+            nixpkgs#puppeteer \
+            nixpkgs#chromium \
+            nixpkgs#noto-fonts \
+            nixpkgs#nss \
+            nixpkgs#freetype \
+            nixpkgs#fontconfig \
+            nixpkgs#cairo \
+            nixpkgs#pango \
+            nixpkgs#harfbuzz \
+            nixpkgs#libdrm \
+            nixpkgs#mesa \
+            nixpkgs#glib \
+            nixpkgs#expat \
+            nixpkgs#libx11 \
+            --extra-experimental-features "nix-command flakes" \
+            --impure \
+            --command bash -c '
                 echo "Running inside nix shell..."
                 echo "Node version: $(node -v)"
                 echo "NPM version: $(npm -v)"
 
-                # Use system Chromium for Playwright
-                export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
-                export CHROMIUM_PATH=$(command -v chromium)
-                echo "Using system Chromium at: $CHROMIUM_PATH"
+                # Set Puppeteer to use system Chromium
+                export PUPPETEER_EXECUTABLE_PATH=$(command -v chromium)
+                export CHROMIUM_EXECUTABLE_PATH=$PUPPETEER_EXECUTABLE_PATH
+                echo "Using Chromium at: $PUPPETEER_EXECUTABLE_PATH"
 
-                # Optionally tell your app where Chromium is
-                export CHROMIUM_EXECUTABLE_PATH=$CHROMIUM_PATH
-
-                # Install dependencies and build
+                # Install and build
                 npm ci --loglevel verbose
                 npm run build
             '
-            # --- End of Nix Flake fix ---
-
-            # Clean up the temporary flake file
-            rm -rf shell-flake
-            echo "Cleaned up temporary shell-flake.nix and shell-flake.lock"
 
       - name: List files
         run: ls -alh

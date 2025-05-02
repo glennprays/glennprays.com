@@ -9,7 +9,7 @@ import { hostName } from "@/constans/general";
 import ShareGroup from "@/components/header/ShareGroup";
 import Link from "next/link";
 import React from "react";
-import { chromium } from 'playwright';
+import puppeteer from "puppeteer";
 
 import { MdArrowForwardIos } from "react-icons/md";
 
@@ -38,30 +38,36 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
 
     console.log(`Generating Open Graph image for ${shortTitle}...`);
     console.log("chromium executable path", process.env.CHROMIUM_EXECUTABLE_PATH);
-    const browser = await chromium.launch({
-        executablePath: process.env.CHROMIUM_EXECUTABLE_PATH,
+    const browser = await puppeteer.launch({
+        executablePath: process.env.CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium',
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--single-process'
+        ]
     });
     const page = await browser.newPage();
 
-    // Set the viewport size to match the desired image dimensions
-    await page.setViewportSize({ width: 1200, height: 630 });
+    await page.setContent(og);
 
-    // Set the HTML content
-    await page.setContent(og, { waitUntil: 'load' });
-
-    // Capture the screenshot
-    const imageBuffer = await page.screenshot({
-        type: 'png',
-        clip: { x: 0, y: 0, width: 1200, height: 630 },
+    const imageData = await page.screenshot({
+        encoding: "base64",
+        clip: {
+            x: 8,
+            y: 8,
+            width: 1200,
+            height: 630,
+        },
     });
 
     // Ensure the directory exists
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
     // Write the image to the file system
-    fs.writeFileSync(filePath, imageBuffer);
+    fs.writeFileSync(filePath, imageData, "base64");
 
     await browser.close();
 
