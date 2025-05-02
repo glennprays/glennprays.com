@@ -40,14 +40,14 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
     console.log("chromium executable path", process.env.CHROMIUM_EXECUTABLE_PATH);
     const browser = await puppeteer.launch({
         // executablePath: process.env.CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium',
-        headless: "shell",
-        // args: [
-        //     '--no-sandbox',
-        //     '--disable-setuid-sandbox',
-        //     '--disable-dev-shm-usage',
-        //     '--disable-gpu',
-        //     '--single-process'
-        // ]
+        headless: true,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-features=site-per-process', // Sometimes helps in headless environments
+            '--disable-extensions' // Generally good practice
+        ]
     });
     const page = await browser.newPage();
 
