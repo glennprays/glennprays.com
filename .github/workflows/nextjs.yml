@@ -58,8 +58,8 @@ jobs:
       - name: Install Chromium and dependencies (for Puppeteer)
         run: |
           # For self-hosted runners, check if packages are already installed to save time
-          # Only update package lists if needed
-          if ! dpkg -l | grep -q libnss3; then
+          # Check for multiple key packages to ensure all dependencies are present
+          if ! dpkg -l | grep -qE "libnss3.*libgtk-3-0.*libgbm1"; then
             echo "Installing required packages..."
             sudo apt-get update
             # Install chromium-browser and common dependencies required for headless execution
@@ -113,7 +113,8 @@ jobs:
             # Removed: mkdir/ln commands
 
             # Install Node.js dependencies using npm ci (clean install)
-            # Note: Add --loglevel verbose only when debugging installation issues
+            # For debugging npm installation issues, temporarily add: --loglevel verbose
+            # Example: npm ci --loglevel verbose
             npm ci
 
             # Run the Next.js build script
