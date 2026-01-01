@@ -105,7 +105,8 @@ jobs:
             # Removed: mkdir/ln commands
 
             # Install Node.js dependencies using npm ci (clean install)
-            npm ci --loglevel verbose
+            # Note: Add --loglevel verbose only when debugging installation issues
+            npm ci
 
             # Run the Next.js build script
             npm run build
