@@ -20,6 +20,7 @@ import figma from "public/images/icon/tools/figma.svg"
 import flask from "public/images/icon/stack/flask.svg"
 import nginx from "public/images/icon/stack/nginx.svg"
 import postgresql from "public/images/icon/stack/postgresql.svg"
+import svelte from "public/images/icon/stack/svelte.svg"
 import mongodb from "public/images/icon/stack/mongo.svg"
 import redis from "public/images/icon/stack/redis.svg"
 import nestjs from "public/images/icon/stack/nestjs.svg"
@@ -33,7 +34,7 @@ export interface SkillItem {
     alt: string,
 }
 
-export const stackList : SkillItem[] = [
+export const stackList: SkillItem[] = [
     {
         name: "Javascript",
         icon: javascript,
@@ -83,6 +84,11 @@ export const stackList : SkillItem[] = [
         name: "Next JS",
         icon: next,
         alt: "Next JS Icon",
+    },
+    {
+        name: "Svelte",
+        icon: svelte,
+        alt: "Svelte Icon",
     },
     {
         name: "Tailwind",
@@ -146,7 +152,7 @@ export const stackList : SkillItem[] = [
     },
 ]
 
-export const toolsList : SkillItem[] = [
+export const toolsList: SkillItem[] = [
     {
         name: "Linux",
         icon: linux,

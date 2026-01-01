@@ -11,6 +11,8 @@ import cariQuy from "public/images/portfolio/cari-aja-quy.jpg";
 import dengerin from "public/images/portfolio/dengerin-music-discovery.jpg";
 import cariHati from "public/images/portfolio/cari-hati.jpg"
 import dbEaseBackup from "public/images/portfolio/dbeasebackup.jpg"
+import theGifts from "public/images/portfolio/the-gifts.jpg"
+import whatsappGateway from "public/images/portfolio/whatsapp-gateway.jpg"
 import { filesHostName } from "./general";
 
 
@@ -38,6 +40,20 @@ function getSkillItems(skillList: string[]): SkillItem[] {
 }
 
 export const portfolioItems: PortfolioItem[] = [
+    {
+        title: "WhatsApp Gateway",
+        tumbnail: whatsappGateway,
+        stacks: getSkillItems(["Golang", "PostgreSQL"]),
+        description: "WhatsApp Gateway is a modern messaging infrastructure service that centralizes WhatsApp state management, simplifies integration through REST APIs and webhooks, and enables scalable, secure, multi-device communication so backend systems can stay stateless and focused purely on business logic.",
+        resourceUrl: "https://github.com/glennprays/whatsapp-gateway"
+    },
+    {
+        title: "The Gifts",
+        tumbnail: theGifts,
+        stacks: getSkillItems(["Svelte", "PostgreSQL"]),
+        description: "TheGifts is a web platform focused on guided self-discovery. It combines simple assessments and learning content to help users better understand their strengths, grow intentionally, and connect their abilities with meaningful opportunities to serve others.",
+        resourceUrl: "https://github.com/glennprays/thegifts"
+    },
     {
         title: "DBEase Backup",
         tumbnail: dbEaseBackup,
