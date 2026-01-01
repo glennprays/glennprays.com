@@ -30,10 +30,12 @@ jobs:
       - name: Restore cache
         uses: actions/cache@v3
         with:
-          path: .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          path: |
+            .next/cache
+            node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       # --- REMOVE: Nix installation step ---
       # - name: Install Nix
@@ -55,25 +57,31 @@ jobs:
       # Adjust package names if your runner uses a different package manager (e.g., yum, pacman).
       - name: Install Chromium and dependencies (for Puppeteer)
         run: |
-          # Update package lists
-          sudo apt-get update
-          # Install chromium-browser and common dependencies required for headless execution
-          # This list is based on common requirements and packages mentioned in your Nix list
-          sudo apt-get install -y \
-            libnss3 \
-            libfontconfig1 \
-            libdbus-1-3 \
-            libatk-bridge2.0-0 \
-            libgtk-3-0 \
-            libcups2 \
-            libxkbcommon0 \
-            libatspi2.0-0 \
-            libgbm1 \
-            libgl1 \
-            libxcomposite1 \
-            libxrandr2 \
-            libxi6 \
-            libasound2
+          # For self-hosted runners, check if packages are already installed to save time
+          # Only update package lists if needed
+          if ! dpkg -l | grep -q libnss3; then
+            echo "Installing required packages..."
+            sudo apt-get update
+            # Install chromium-browser and common dependencies required for headless execution
+            # This list is based on common requirements and packages mentioned in your Nix list
+            sudo apt-get install -y \
+              libnss3 \
+              libfontconfig1 \
+              libdbus-1-3 \
+              libatk-bridge2.0-0 \
+              libgtk-3-0 \
+              libcups2 \
+              libxkbcommon0 \
+              libatspi2.0-0 \
+              libgbm1 \
+              libgl1 \
+              libxcomposite1 \
+              libxrandr2 \
+              libxi6 \
+              libasound2
+          else
+            echo "Required packages already installed, skipping installation."
+          fi
 
       # --- MODIFIED: Install dependencies, build, and export ---
       # Replaces the Nix shell command with standard shell execution
