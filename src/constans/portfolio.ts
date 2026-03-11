@@ -45,7 +45,8 @@ export const portfolioItems: PortfolioItem[] = [
         tumbnail: whatsappGateway,
         stacks: getSkillItems(["Golang", "PostgreSQL"]),
         description: "WhatsApp Gateway is a modern messaging infrastructure service that centralizes WhatsApp state management, simplifies integration through REST APIs and webhooks, and enables scalable, secure, multi-device communication so backend systems can stay stateless and focused purely on business logic.",
-        resourceUrl: "https://github.com/glennprays/whatsapp-gateway"
+        resourceUrl: "https://github.com/glennprays/whatsapp-gateway",
+        moreUrl: "https://waga.glennprays.com/"
     },
     {
         title: "The Gifts",
