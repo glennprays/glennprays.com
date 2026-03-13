@@ -8,10 +8,31 @@ import { portfolioItems, PortfolioItem } from "@/constans/portfolio";
 import BackdropModal from "@/components/modal/BackdropModal";
 import Link from "next/link";
 import { SkillItem } from "@/constans/skills";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Motions } from "@/utils/motion";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Portfolio() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
+    const totalPages = Math.ceil(portfolioItems.length / itemsPerPage);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const visibleItems = portfolioItems.slice(startIndex, endIndex);
+
+    const goToPage = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const goToPrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
+    const goToNextPage = () => {
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+
     return (
         <section id="portfolio" className="section-container">
             <motion.h2
@@ -24,22 +45,59 @@ export default function Portfolio() {
                 Portfolio
             </motion.h2>
 
-            <motion.div
-                viewport={{ once: true, amount: 0.1 }}
-                initial="hidden"
-                whileInView="show"
-                variants={Motions.staggerContainer(0.1, 0.2)}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-            >
-                {portfolioItems.map((item, index) => (
-                    <motion.div
-                        key={item.title}
-                        variants={Motions.fadeUp(index * 0.1)}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={currentPage}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+                >
+                    {visibleItems.map((item, index) => (
+                        <motion.div
+                            key={item.title}
+                            variants={Motions.fadeUp(index * 0.1)}
+                            initial="hidden"
+                            animate="show"
+                        >
+                            <PortfolioItemDiv item={item} />
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </AnimatePresence>
+
+            {totalPages > 1 && (
+                <div className="flex gap-3 items-center justify-center mt-8 text-xl">
+                    <button
+                        onClick={goToPrevPage}
+                        disabled={currentPage === 1}
+                        className="disabled:opacity-30"
                     >
-                        <PortfolioItemDiv item={item} />
-                    </motion.div>
-                ))}
-            </motion.div>
+                        <IoIosArrowBack className="dark:text-neutral-100" />
+                    </button>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i + 1}
+                            onClick={() => goToPage(i + 1)}
+                            className={
+                                currentPage === i + 1
+                                    ? "rounded-full flex justify-center items-center bg-neutral-300 dark:bg-neutral-700 w-[27px] h-[27px] mx-[-3px]"
+                                    : ""
+                            }
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                    <button
+                        onClick={goToNextPage}
+                        disabled={currentPage === totalPages}
+                        className="disabled:opacity-30"
+                    >
+                        <IoIosArrowForward className="dark:text-neutral-100" />
+                    </button>
+                </div>
+            )}
         </section>
     );
 }
