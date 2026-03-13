@@ -15,6 +15,10 @@ export const navItems : NavItem[] = [
         href: "/#skills"
     },
     {
+        name: "Resume",
+        href: "/#resume"
+    },
+    {
         name: "Portfolio",
         href: "/#portfolio"
     },
