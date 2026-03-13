@@ -2,6 +2,8 @@ import { flattenText } from "./src/utils/formater";
 import { blogTopics } from "./src/constans/blog";
 import { estimateReadingTime } from "./src/utils/reading";
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const topicsList = blogTopics.map((blog) => blog.name);
 
@@ -66,4 +68,10 @@ const Blog = defineDocumentType(() => ({
 export default makeSource({
     contentDirPath: "src/blogs",
     documentTypes: [Blog],
+    mdx: {
+        rehypePlugins: [
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: "wrap" }],
+        ],
+    },
 });

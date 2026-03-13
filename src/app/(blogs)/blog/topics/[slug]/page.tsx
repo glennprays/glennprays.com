@@ -1,9 +1,11 @@
 import { blogTopics } from "@/constans/blog";
-import { Blog, allBlogs } from "contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
+import { allBlogs } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
 import { Metadata } from "next";
 import Link from "next/link";
 import { AiOutlineCompass } from "react-icons/ai";
+import BlogCard from "@/components/element/BlogCard";
+import AnimatedSection from "@/components/element/AnimatedSection";
 
 type Props = {
     params: {
@@ -25,54 +27,44 @@ export function generateMetadata({ params }: Props) {
     return metadata;
 }
 
-function BlogCard({ blog }: { blog: Blog }) {
-    return (
-        <Link
-            href={`/blog/${blog.slug}`}
-            className="w-[285px] bg-neutral-300 dark:bg-neutral-800 py-3 px-3 rounded-lg flex flex-col gap-2 hover:scale-105 transition-transform"
-        >
-            <span className="text-xl font-semibold hover:underline line-clamp-3">
-                {blog.title}
-            </span>
-
-            <div className="flex gap-2 text-xs">
-                <time dateTime={blog.date} className="">
-                    {format(parseISO(blog.date), "LLLL d, yyyy")}
-                </time>
-                ·<span className="">{blog.reading_time} min read</span>
-            </div>
-            <span className="line-clamp-2">{blog.description}</span>
-        </Link>
-    );
-}
-
 export default function Page({ params }: Props) {
     const topic = blogTopics.find((topic) => topic.slug === params.slug);
     const blogs = allBlogs
         .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
         .filter((blog) => blog.flattened_tag === params.slug);
+
     return (
-        <div className="w-full mx-auto md:w-[650px] ">
-            <header className="flex flex-col gap-2">
-                <span className="text-xl font-semibold">
-                    Blog&apos;s Topic:
-                </span>
-                <h1 className=" font-bold text-5xl">{topic?.name}</h1>
-                <span className="text-sm">{topic?.description}</span>
-                <div className="w-full flex">
+        <div className="w-full mx-auto md:w-[650px]">
+            <AnimatedSection className="flex flex-col gap-3 mb-12">
+                <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                    Blog Topic
+                </div>
+                <h1 className="font-bold text-5xl">{topic?.name}</h1>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {topic?.description}
+                </p>
+                <div className="w-full flex mt-2">
                     <Link
                         href={`/blog/topics`}
-                        className="flex gap-2 items-center rounded-full py-1 px-2 bg-neutral-300 dark:bg-neutral-700"
+                        className="flex gap-2 items-center rounded-full py-1.5 px-3 bg-neutral-100 dark:bg-neutral-700/50 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-sm"
                     >
-                        <AiOutlineCompass /> More Topics
+                        <AiOutlineCompass className="w-4 h-4" />
+                        More Topics
                     </Link>
                 </div>
-            </header>
-            <div className="mt-10 mx-auto w-fit grid grid-cols-1 min-[769px]:grid-cols-2 gap-8 flex-wrap">
-                {blogs.map((blog) => (
-                    <BlogCard key={blog.title} blog={blog} />
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.1} className="flex flex-col gap-8">
+                {blogs.map((blog, index) => (
+                    <BlogCard key={blog.title} blog={blog} index={index} />
                 ))}
-            </div>
+            </AnimatedSection>
+
+            {blogs.length === 0 && (
+                <p className="text-neutral-500 text-center py-12">
+                    No posts in this topic yet.
+                </p>
+            )}
         </div>
     );
 }

@@ -18,6 +18,15 @@
     .card-subtle {
         @apply bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-700/50 rounded-xl;
     }
+
+    /* Table of Contents */
+    .toc-link {
+        @apply text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors py-1;
+    }
+
+    .toc-link-active {
+        @apply text-neutral-900 dark:text-neutral-100 font-medium border-l-2 border-cyan-600 dark:border-amber-500 pl-2;
+    }
 }
 
 @layer utilities {
@@ -36,6 +45,19 @@
     .text-balance {
         text-wrap: balance;
     }
+}
+
+/* Code block styles */
+pre {
+    @apply relative rounded-lg overflow-x-auto bg-neutral-900 dark:bg-neutral-950;
+}
+
+pre code {
+    @apply block p-4 text-sm leading-relaxed;
+}
+
+code:not(pre code) {
+    @apply px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-700 text-sm font-mono;
 }
 
 /* Reduced motion support */
