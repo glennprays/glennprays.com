@@ -71,6 +71,57 @@ class Motion {
             },
         };
     }
+
+    fadeUp(delay: number = 0, duration: number = 0.5) {
+        return {
+            hidden: {
+                y: 30,
+                opacity: 0,
+            },
+            show: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                    type: "tween",
+                    delay,
+                    duration,
+                    ease: [0.25, 0.1, 0.25, 1],
+                },
+            },
+        };
+    }
+
+    staggerContainer(staggerChildren: number = 0.1, delayChildren: number = 0) {
+        return {
+            hidden: { opacity: 0 },
+            show: {
+                opacity: 1,
+                transition: {
+                    staggerChildren,
+                    delayChildren,
+                },
+            },
+        };
+    }
+
+    scaleIn(delay: number = 0, duration: number = 0.3) {
+        return {
+            hidden: {
+                scale: 0.95,
+                opacity: 0,
+            },
+            show: {
+                scale: 1,
+                opacity: 1,
+                transition: {
+                    type: "tween",
+                    delay,
+                    duration,
+                    ease: [0.25, 0.1, 0.25, 1],
+                },
+            },
+        };
+    }
 }
 
 export const Motions = new Motion();

@@ -1,39 +1,66 @@
+"use client";
+
 import { contactList } from "@/constans/contact";
 import Link from "next/link";
-import { FaLinkedin } from "react-icons/fa6";
+import { motion } from "framer-motion";
+import { Motions } from "@/utils/motion";
 
 export default function Contact() {
     return (
-        <div
-            className="container mx-auto flex flex-col items-center justify-start py-20 gap-5 min-h-screen"
-            id="contact"
-        >
-            <h2 className="text-5xl font-bold">Contact</h2>
-            <div className="w-full mx-20">
-                <div className="mx-auto w-fit grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                    {contactList.map((item, index) => {
-                        const { name, username, url } = item;
-                        return (
-                            <div key={name} className="flex w-[305px] py-2 px-2 justify-start gap-3 items-center dark:text-white border shadow border-slate-200 dark:border-zinc-800 rounded-lg bg-neutral-300 dark:bg-neutral-700 transition-transform ">
-                                <span className="text-[45px]">
-                                    <item.icon />
-                                </span>
-                                <div className="flex flex-col gap-0">
-                                    <span className="text-xl font-semibold">
-                                        {name}
-                                    </span>
-                                    <Link
-                                        className="hover:underline" target="_blank"
-                                        href={url}
-                                    >
-                                        {username}
-                                    </Link>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        </div>
+        <section id="contact" className="section-container">
+            <motion.h2
+                viewport={{ once: true, amount: 0.3 }}
+                initial="hidden"
+                whileInView="show"
+                variants={Motions.fadeUp()}
+                className="section-title"
+            >
+                Contact
+            </motion.h2>
+
+            <motion.div
+                viewport={{ once: true, amount: 0.2 }}
+                initial="hidden"
+                whileInView="show"
+                variants={Motions.staggerContainer(0.1, 0.2)}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
+            >
+                {contactList.map((item, index) => (
+                    <motion.div
+                        key={item.name}
+                        variants={Motions.fadeUp(index * 0.1)}
+                    >
+                        <ContactCard item={item} />
+                    </motion.div>
+                ))}
+            </motion.div>
+        </section>
     );
 }
+
+const ContactCard = ({
+    item,
+}: {
+    item: { name: string; username: string; url: string; icon: React.ComponentType };
+}) => {
+    const { name, username, url, icon: Icon } = item;
+
+    return (
+        <Link
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card hover-lift hover-glow flex items-center gap-4 group"
+        >
+            <div className="text-4xl text-neutral-600 dark:text-neutral-400 group-hover:text-cyan-600 dark:group-hover:text-amber-500 transition-colors">
+                <Icon />
+            </div>
+            <div className="flex flex-col min-w-0">
+                <span className="font-semibold text-lg">{name}</span>
+                <span className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
+                    {username}
+                </span>
+            </div>
+        </Link>
+    );
+};

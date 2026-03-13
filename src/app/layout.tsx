@@ -2,11 +2,13 @@ import Provider from "@/components/middleware/provider";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/footer/Footer";
-import { hostName } from "@/constans/general";
+import { hostName, filesHostName } from "@/constans/general";
+import JsonLd from "@/components/seo/JsonLd";
 
 const fontFamily = Poppins({
     weight: ["100", "200", "400", "500", "600", "700", "800", "900", "300"],
     subsets: ["latin"],
+    display: "swap",
 });
 
 export const metadata = {
@@ -35,6 +37,9 @@ export default function RootLayout({
         <html lang="en">
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+                <link rel="preconnect" href={filesHostName} />
+                <link rel="dns-prefetch" href={filesHostName} />
+                <JsonLd />
             </head>
             <body className={fontFamily.className}>
                 <Provider>

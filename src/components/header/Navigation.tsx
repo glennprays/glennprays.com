@@ -1,13 +1,13 @@
 'use client'
 import { ThemeSwicher } from "@/components/theme/ThemeSwicher";
-import { motion, useScroll } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Hamburger from "./Hamburger";
 import { navItems } from "@/constans/navigation";
 
 export const Navigation = () => {
-    const [isOnTop, setIsOnTop] = useState(false);
+    const [isOnTop, setIsOnTop] = useState(true);
     const [isScrollingDown, setIsScrollingDown] = useState(false);
     const [prevY, setPrevY] = useState(0);
     const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -25,7 +25,7 @@ export const Navigation = () => {
             const currentScrollPos = window.scrollY;
             const scrollingDown = prevY < currentScrollPos;
             setIsOnTop(currentScrollPos === 0);
-            setIsScrollingDown(scrollingDown);
+            setIsScrollingDown(scrollingDown && currentScrollPos > 100);
             setPrevY(currentScrollPos);
         };
 
@@ -35,6 +35,7 @@ export const Navigation = () => {
         }
 
     }, [prevY])
+
     return (
         <motion.nav
             initial={{ y: 0 }}
@@ -43,17 +44,64 @@ export const Navigation = () => {
                 type: 'tween'
             }}
             animate={{ y: isScrollingDown ? -100 : 0 }}
-            className={"bg-neutral-200 dark:bg-neutral-900 fixed top-0 left-0 w-full py-5 px-8 md:px-24 flex items-center justify-between z-50 bg-inherit select-none " + (isOnTop || isHamburgerOpen ? "opacity-100" : "opacity-90")}>
-            <Link id="logo" href='/' className="font-mono font-bold text-2xl select-none">
+            className={`fixed top-0 left-0 w-full py-4 px-6 md:px-12 lg:px-24 flex items-center justify-between z-50 select-none transition-all duration-300 ${isOnTop
+                ? 'bg-transparent'
+                : 'bg-neutral-200/80 dark:bg-neutral-900/80 backdrop-blur-md'
+                }`}
+        >
+            <Link
+                id="logo"
+                href='/'
+                className="font-mono font-bold text-xl md:text-2xl select-none hover:text-cyan-600 dark:hover:text-amber-500 transition-colors"
+            >
                 glennprays;
             </Link>
-            <div className={"flex justify-between items-center px-8 md:px-24 xl:px-0 w-7/12 max-xl:w-full text-xl max-xl:absolute max-xl:left-0 max-xl:top-0 max-xl:mt-[76px] transition-all max-xl:overflow-x-hidden max-xl:overflow-y-auto max-xl:bg-inherit max-xl:flex-col max-xl:items-start max-xl:justify-start max-xl:gap-4 " + (isHamburgerOpen ? "max-xl:py-5 max-xl:h-[calc(100vh-76px)]" : "max-xl:h-0 max-xl:py-0")} >
-                {
-                    navItems.map((item) => <Link key={item.name} href={item.href} onClick={() => setIsHamburgerOpen(false)} className={"hover:text-cyan-600 dark:hover:text-amber-500 hover:underline font-semibold "}>{item.name}</Link>)
-                }
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8">
+                {navItems.map((item) => (
+                    <Link
+                        key={item.name}
+                        href={item.href}
+                        className="text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-amber-500 transition-colors min-h-[44px] flex items-center"
+                    >
+                        {item.name}
+                    </Link>
+                ))}
             </div>
-            <ThemeSwicher />
-            <Hamburger isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
+
+            <div className="flex items-center gap-4">
+                <ThemeSwicher />
+                <div className="lg:hidden">
+                    <Hamburger isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
+                </div>
+            </div>
+
+            {/* Mobile Navigation */}
+            <AnimatePresence>
+                {isHamburgerOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className="lg:hidden absolute top-full left-0 w-full bg-neutral-200/95 dark:bg-neutral-900/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800"
+                    >
+                        <div className="flex flex-col py-4 px-6">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={() => setIsHamburgerOpen(false)}
+                                    className="py-3 text-lg font-medium text-neutral-700 dark:text-neutral-200 hover:text-cyan-600 dark:hover:text-amber-500 transition-colors min-h-[44px] flex items-center border-b border-neutral-200 dark:border-neutral-800 last:border-b-0"
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.nav>
     )
 };
