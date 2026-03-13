@@ -65,6 +65,12 @@ export const coreExpertise = [
 // Engineering capabilities (text only, no icons)
 export const engineeringCapabilities = [
     "System Design",
+    "Technical Translation",
+    "Team Leadership",
+    "Code Review & Mentorship",
+    "Project Planning",
+    "Analytical Thinking",
+    "Trade-off Analysis",
     "REST API Design",
     "Database Optimization",
     "Caching Strategies",
@@ -73,12 +79,6 @@ export const engineeringCapabilities = [
     "Linux Deployment",
     "Performance Tuning",
     "Git Workflows",
-    "Technical Translation",
-    "Team Leadership",
-    "Code Review & Mentorship",
-    "Project Planning",
-    "Analytical Thinking",
-    "Trade-off Analysis",
     "Message Queues",
 ]
 

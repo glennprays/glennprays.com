@@ -43,7 +43,7 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "WhatsApp Gateway",
         tumbnail: whatsappGateway,
-        stacks: getSkillItems(["Golang", "PostgreSQL"]),
+        stacks: getSkillItems(["Go", "PostgreSQL", "RabbatiMQ", "Redis"]),
         description: "WhatsApp Gateway is a modern messaging infrastructure service that centralizes WhatsApp state management, simplifies integration through REST APIs and webhooks, and enables scalable, secure, multi-device communication so backend systems can stay stateless and focused purely on business logic.",
         resourceUrl: "https://github.com/glennprays/whatsapp-gateway",
         moreUrl: "https://waga.glennprays.com/"
@@ -58,14 +58,14 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "DBEase Backup",
         tumbnail: dbEaseBackup,
-        stacks: getSkillItems(["Golang"]),
+        stacks: getSkillItems(["Go"]),
         description: "DBEaseBackup is a Go-powered tool that automates secure database backups, enabling scheduled storage to ensure your data is consistently protected and easily accessible when needed.",
         resourceUrl: "https://github.com/glennprays/dbeasebackup"
     },
     {
         title: "Cari Hati Dating App",
         tumbnail: cariHati,
-        stacks: getSkillItems(["Nest JS", "Next JS", "PostgreSQL", "MongoDB", "Redis", "Nginx"]),
+        stacks: getSkillItems(["NestJS", "Next.js", "PostgreSQL", "MongoDB", "Redis", "Nginx"]),
         description: "Cari Hati, a dating app, used PostgreSQL, MongoDB, and Redis databases to boost efficiency, while Xendit ensured smooth transactions and K-Means enabled precise matchmaking.",
         resourceUrl: "https://github.com/glennprays/cari-hati-server",
         moreUrl: filesHostName + "/portfolio/portfolio-cari-hati.pdf",
@@ -73,7 +73,7 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "Dengerin Music Discovery",
         tumbnail: dengerin,
-        stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
+        stacks: getSkillItems(["Flask", "Next.js", "Nginx"]),
         description: "Introducing a  Music Discovery Web Application (API and user-friendly interface). The platform is enhanced with Google API integration for song detection.",
         resourceUrl: "https://github.com/glennprays/music-discovery-server",
         moreUrl: filesHostName + "/portfolio/portfolio-dengerin-music-discovery.pdf",
@@ -81,7 +81,7 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "Cari Quy Search Engine",
         tumbnail: cariQuy,
-        stacks: getSkillItems(["Flask", "Next JS", "Nginx"]),
+        stacks: getSkillItems(["Flask", "Next.js", "Nginx"]),
         description: "Cari Quy is a search engine that utilizes TF-IDF and Cosine Similarity methods for information retrieval.",
         resourceUrl: "https://github.com/glennprays/search-engine-server",
         moreUrl: filesHostName + "/portfolio/portfolio-cari-aja-quy.pdf",
@@ -97,14 +97,14 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "Personal Website",
         tumbnail: personalWebsite,
-        stacks: getSkillItems(["Next JS", "Typescript", "Tailwind", "Framer", "Contentlayer"]),
+        stacks: getSkillItems(["Next.js", "Typescript", "Tailwind", "Framer", "Contentlayer"]),
         description: "This is my personal website",
         resourceUrl: "https://github.com/glennprays/glennprays.com",
     },
     {
         title: "3rd IPAC 2023",
         tumbnail: ipac,
-        stacks: getSkillItems(["React JS", "Javascript", "Bootstrap", "Vite"]),
+        stacks: getSkillItems(["React", "Javascript", "Bootstrap", "Vite"]),
         description:
             "As a Frontend Web Developer, I have contributed my expertise to the development web applications tailored for registration, operational management, and service provisioning during the 3rd Indonesia Pathfinder Camporee in 2023. My role encompassed the creation of dynamic and user-centric interfaces, ensuring seamless navigation and optimal user experiences for attendees and stakeholders alike.",
         moreUrl: filesHostName + "/portfolio/portfolio-3ipac.pdf",
@@ -112,7 +112,7 @@ export const portfolioItems: PortfolioItem[] = [
     {
         title: "Movie Ticketin API",
         tumbnail: tixid,
-        stacks: getSkillItems(["Golang", "MySQL"]),
+        stacks: getSkillItems(["Go", "MySQL"]),
         description:
             "This project aims to develop an application similar to TIX-ID, a well-established platform for booking tickets online. The program uses go-gin as the framework, MySQL as the database.",
         resourceUrl: "https://github.com/glennprays/tix-id",
