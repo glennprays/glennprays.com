@@ -1,96 +1,53 @@
 "use client";
+
 import Image from "next/image";
 import { BiSolidRightArrowCircle, BiCodeAlt } from "react-icons/bi";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { MdMoreHoriz } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { portfolioItems, PortfolioItem } from "@/constans/portfolio";
 import BackdropModal from "@/components/modal/BackdropModal";
 import Link from "next/link";
 import { SkillItem } from "@/constans/skills";
+import { motion } from "framer-motion";
+import { Motions } from "@/utils/motion";
 
 export default function Portfolio() {
-    const [screenWidth, setScreenWidth] = useState(
-        typeof window !== "undefined" ? window.innerWidth : 0
-    );
-    const [overflow, setOverflow] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [closeY, setCloseY] = useState(0);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setScreenWidth(window.innerWidth);
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    useEffect(() => {
-        const parent = document.getElementById("portfolio");
-        const child = document.getElementById("portfolio-content");
-
-        if (parent && child && !open) {
-            setOverflow(parent.clientHeight < child.clientHeight);
-        }
-    }, [screenWidth, open]);
-
-    useEffect(() => {
-        if (overflow) {
-            setOpen(false);
-        }
-    }, [overflow]);
-
-    function handleOpen() {
-        if (open) {
-            window.scroll(window.scrollX, closeY);
-        } else {
-            setCloseY(window.scrollY);
-        }
-        setOpen(!open);
-    }
-
     return (
-        <div
-            id="portfolio"
-            className={`container mx-auto flex flex-col items-center justify-start py-20 gap-5 overflow-y-hidden transition-all relative ${open ? "h-fit" : "h-screen"
-                }`}
-        >
-            <h2 className="text-5xl font-bold">Portfolio</h2>
-            <div id="portfolio-content">
-                <div className="py-5 grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-5 w-full">
-                    {portfolioItems.map((item, index) => (
-                        <PortfolioItemDiv key={item.title} item={item} />
-                    ))}
-                </div>
-            </div>
-            <div className="p-10 h-32 w-full absolute bottom-0 bg-gradient-to-t from-neutral-200 dark:from-neutral-900 to-transparent flex justify-center items-center">
-                <button
-                    className={`rounded-full py-1 px-3 text-white text-lg font-medium bg-sky-600 dark:bg-orange-600 flex gap-1 items-center ${overflow ? "visible" : "invisible"
-                        }`}
-                    onClick={handleOpen}
-                >
-                    {open ? (
-                        <>
-                            Show less <IoMdArrowDropup />
-                        </>
-                    ) : (
-                        <>
-                            Show more <IoMdArrowDropdown />
-                        </>
-                    )}
-                </button>
-            </div>
-        </div>
+        <section id="portfolio" className="section-container">
+            <motion.h2
+                viewport={{ once: true, amount: 0.3 }}
+                initial="hidden"
+                whileInView="show"
+                variants={Motions.fadeUp()}
+                className="section-title"
+            >
+                Portfolio
+            </motion.h2>
+
+            <motion.div
+                viewport={{ once: true, amount: 0.1 }}
+                initial="hidden"
+                whileInView="show"
+                variants={Motions.staggerContainer(0.1, 0.2)}
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+            >
+                {portfolioItems.map((item, index) => (
+                    <motion.div
+                        key={item.title}
+                        variants={Motions.fadeUp(index * 0.1)}
+                    >
+                        <PortfolioItemDiv item={item} />
+                    </motion.div>
+                ))}
+            </motion.div>
+        </section>
     );
 }
 
 const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
     const { title, tumbnail, stacks, description, resourceUrl, moreUrl } = item;
     const [open, setOpen] = useState(false);
+
     return (
         <>
             <BackdropModal
@@ -99,69 +56,72 @@ const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
                 closeButton
                 backdropActive
             >
-                <div className="xl:w-[550px] sm:w-[330px] w-[300px] flex flex-col justify-start items-center gap-3 my-3">
-                    <div className="flex flex-col gap-2 overflow-y-auto max-h-[420px]">
-                        <section>
-                            <Image
-                                src={tumbnail}
-                                width="0"
-                                height="0"
-                                alt={title}
-                                className="w-full rounded-lg border border-neutral-400 dark:border-neutral-200"
-                            />
-                        </section>
-                        <div className="flex gap-1 flex-wrap">
-                            {stacks?.map((stack, index) => (
-                                <StackItem key={stack.name} stack={stack} />
-                            ))}
-                        </div>
-                        <div className="flex flex-col gap-1 w-full">
-                            <span className="font-semibold text-xl">
-                                Description
-                            </span>
-                            <div className="w-full rounded-lg border-neutral-400">
-                                {description}
-                            </div>
-                        </div>
+                <div className="w-[90vw] max-w-lg flex flex-col gap-4 p-4">
+                    <Image
+                        src={tumbnail}
+                        width={0}
+                        height={0}
+                        alt={title}
+                        sizes="(max-width: 768px) 90vw, 500px"
+                        className="w-full rounded-lg border border-neutral-200 dark:border-neutral-700"
+                    />
+                    <div className="flex gap-2 flex-wrap">
+                        {stacks?.map((stack) => (
+                            <StackItem key={stack.name} stack={stack} />
+                        ))}
                     </div>
-                    <div className="flex justify-end items-center gap-3 bg-neutral-200 border-t-2 border-neutral-400 dark:border-neutral-500 w-full dark:bg-neutral-900">
-
-                        {
-                            moreUrl &&
-                            <Link href={moreUrl} target="_blank" className="pb-0 pt-4 flex justify-end">
-                                <button className="rounded-full py-2 xl:py-2 px-3 text-sm xl:text-lg font-semibold bg-sky-600 hover:bg-sky-800 dark:bg-orange-600 dark:hover:bg-orange-800 text-white flex gap-1 items-center">
+                    <div className="flex flex-col gap-2">
+                        <h3 className="font-semibold text-lg">Description</h3>
+                        <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">
+                            {description}
+                        </p>
+                    </div>
+                    <div className="flex justify-end gap-3 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+                        {moreUrl && (
+                            <Link href={moreUrl} target="_blank">
+                                <button className="rounded-lg py-2 px-4 text-sm font-medium bg-cyan-600 hover:bg-cyan-700 dark:bg-amber-500 dark:hover:bg-amber-600 text-white flex gap-2 items-center transition-colors">
                                     More <MdMoreHoriz />
                                 </button>
                             </Link>
-                        }
-                        {
-                            resourceUrl &&
-                            <Link href={resourceUrl} target="_blank" className="pb-0 pt-4 flex justify-end">
-                                <button className="rounded-full py-2 xl:py-2 px-3 text-sm xl:text-lg font-semibold bg-sky-600 hover:bg-sky-800 dark:bg-orange-600 dark:hover:bg-orange-800 text-white flex gap-1 items-center">
+                        )}
+                        {resourceUrl && (
+                            <Link href={resourceUrl} target="_blank">
+                                <button className="rounded-lg py-2 px-4 text-sm font-medium border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex gap-2 items-center transition-colors">
                                     Resource <BiCodeAlt />
                                 </button>
                             </Link>
-                        }
-
-
+                        )}
                     </div>
                 </div>
-            </BackdropModal >
-            <div className="w-[295px] sm:w-[390px] py-7 px-5 sm:px-8 border mx-auto shadow-md border-slate-400 dark:border-zinc-800 dark:shadow-zinc-800 rounded-xl flex flex-col items-center gap-3 cursor-pointer">
-                <div className="w-[240px] h-[130px] sm:w-[320px] sm:h-[185px] rounded-md overflow-hidden border-2 border-slate-500 dark:border-zinc-800 relative select-none">
-                    <Image src={tumbnail} alt={title} fill />
+            </BackdropModal>
+
+            <div
+                className="card hover-lift hover-glow cursor-pointer group"
+                onClick={() => setOpen(true)}
+            >
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-700">
+                    <Image
+                        src={tumbnail}
+                        alt={title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                 </div>
-                <span className="font-semibold text-2xl">{title}</span>
-                <div className="w-full flex flex-wrap gap-2 justify-center">
-                    {stacks?.map((stack, index) => (
+                <h3 className="font-semibold text-xl mb-3">{title}</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {stacks?.slice(0, 4).map((stack) => (
                         <StackItem key={stack.name} stack={stack} />
                     ))}
+                    {stacks && stacks.length > 4 && (
+                        <span className="text-xs text-neutral-500 self-center">
+                            +{stacks.length - 4} more
+                        </span>
+                    )}
                 </div>
-                <button
-                    onClick={() => setOpen(!open)}
-                    className=" mt-3 rounded-lg px-4 py-2 border border-gray-500 flex items-center text-xl gap-1 transition-colors hover:bg-sky-600 hover:dark:bg-orange-600 hover:border-transparent hover:text-white"
-                >
-                    Details <BiSolidRightArrowCircle />
+                <button className="text-sm font-medium text-cyan-600 dark:text-amber-500 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    View Details
+                    <BiSolidRightArrowCircle className="text-base" />
                 </button>
             </div>
         </>
@@ -170,12 +130,9 @@ const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
 
 const StackItem = ({ stack: { name, icon, alt } }: { stack: SkillItem }) => {
     return (
-        <div
-            key={name}
-            className=" bg-neutral-100 dark:bg-neutral-600 rounded-full px-2 py-0.5 select-none flex gap-1"
-        >
-            <Image src={icon} alt={alt} width="20" height="20" />
+        <span className="inline-flex items-center gap-1 text-xs bg-neutral-100 dark:bg-neutral-700 rounded-full px-2 py-1">
+            <Image src={icon} alt={alt} width={14} height={14} />
             {name}
-        </div>
+        </span>
     );
 };

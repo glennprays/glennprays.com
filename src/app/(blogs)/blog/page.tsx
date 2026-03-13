@@ -1,10 +1,11 @@
 import Pagination from "@/components/element/Pagination";
+import BlogCard from "@/components/element/BlogCard";
 import { allBlogs } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import Link from "next/link";
 import { AiOutlineCompass } from "react-icons/ai";
 import { pagination } from "@/constans/blog";
-import BlogCard from "@/components/element/BlogCard";
+import AnimatedSection from "@/components/element/AnimatedSection";
 
 export const paginationConfig = new pagination(
     "/blog",
@@ -22,27 +23,29 @@ export default function Page() {
 
     return (
         <div className="w-full mx-auto md:w-[650px]">
-            <div className="mb-9 flex flex-col gap-4">
-                <h1 className="text-5xl font-bold">Blogs</h1>
-                <span className="text-sm">
-                    This is my blog, talking about software engineering and data
-                    science.
-                </span>
+            <AnimatedSection className="mb-12 flex flex-col gap-4">
+                <h1 className="text-5xl font-bold">Blog</h1>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    Thoughts on software engineering, data science, and technology.
+                </p>
                 <div className="w-full flex">
                     <Link
                         href={`/blog/topics`}
-                        className="flex gap-2 items-center rounded-full py-1 px-2 bg-neutral-300 dark:bg-neutral-700"
+                        className="flex gap-2 items-center rounded-full py-1.5 px-3 bg-neutral-100 dark:bg-neutral-700/50 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-sm"
                     >
-                        <AiOutlineCompass /> Topics
+                        <AiOutlineCompass className="w-4 h-4" />
+                        Browse Topics
                     </Link>
                 </div>
-            </div>
-            <div className="flex flex-col gap-16">
-                {blogs.map((blog) => (
-                    <BlogCard blog={blog} key={blog.url} />
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.1} className="flex flex-col gap-8">
+                {blogs.map((blog, index) => (
+                    <BlogCard blog={blog} key={blog.url} index={index} />
                 ))}
-            </div>
-            <div className="w-full flex justify-center">
+            </AnimatedSection>
+
+            <div className="w-full flex justify-center mt-12">
                 <Pagination
                     firstPagePath={firstPagePath}
                     basePath={basePath}
@@ -51,8 +54,10 @@ export default function Page() {
                     showedPages={showedPages}
                 />
             </div>
-            {blogs ? null : (
-                <span className="font-mono text-lg w-full">No blog yet</span>
+            {blogs.length === 0 && (
+                <span className="font-mono text-lg w-full text-center block text-neutral-500">
+                    No blog posts yet
+                </span>
             )}
         </div>
     );

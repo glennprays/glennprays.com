@@ -8,10 +8,15 @@ import Image from "next/image";
 import { hostName } from "@/constans/general";
 import ShareGroup from "@/components/header/ShareGroup";
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 import puppeteer from "puppeteer";
-
 import { MdArrowForwardIos } from "react-icons/md";
+import { FiClock, FiCalendar, FiTag } from "react-icons/fi";
+import AnimatedPostContent from "@/components/blog/AnimatedPostContent";
+import { extractHeadings } from "@/utils/extractHeadings";
+import { Heading } from "@/utils/extractHeadings";
+import TableOfContents from "@/components/blog/TableOfContents";
+import CopyCodeButton from "@/components/blog/CopyCodeButton";
 
 type Props = {
     params: {
@@ -45,8 +50,8 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-features=site-per-process', // Sometimes helps in headless environments
-            '--disable-extensions' // Generally good practice
+            '--disable-features=site-per-process',
+            '--disable-extensions'
         ]
     });
     const page = await browser.newPage();
@@ -63,10 +68,7 @@ async function generateOg(shortTitle: string, slug: string): Promise<string> {
         },
     });
 
-    // Ensure the directory exists
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
-
-    // Write the image to the file system
     fs.writeFileSync(filePath, imageData, "base64");
 
     await browser.close();
@@ -83,7 +85,7 @@ export async function generateMetadata({ params }: Props) {
     const blog = allBlogs.find((blog) => blog.slug === params.slug);
     const ogPath = await generateOg(blog?.short_title || "", blog?.slug || "");
     const metadata: Metadata = {
-        title: blog?.title + " | glennprays;",
+        title: blog?.title + " | glennprays",
         description: blog?.description,
         robots: {
             index: true,
