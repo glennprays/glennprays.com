@@ -1,7 +1,6 @@
 import { IconType } from "react-icons";
 import { FaLinkedin, FaGithub } from "react-icons/fa6";
 import { MdMail } from "react-icons/md";
-import { SiCodepen } from "react-icons/si";
 
 interface ContactItem {
     name: string;
@@ -28,11 +27,5 @@ export const contactList: ContactItem[] = [
         icon: FaGithub,
         username: "github.com/glennprays",
         url: "https://github.com/glennprays",
-    },
-    {
-        name: "Codepen",
-        icon: SiCodepen,
-        username: "codepen.io/glennpray",
-        url: "https://codepen.io/glennpray",
     },
 ];
