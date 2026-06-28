@@ -60,6 +60,7 @@ export default function Portfolio() {
                             variants={Motions.fadeUp(index * 0.1)}
                             initial="hidden"
                             animate="show"
+                            className="h-full"
                         >
                             <PortfolioItemDiv item={item} />
                         </motion.div>
@@ -154,7 +155,7 @@ const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
             </BackdropModal>
 
             <div
-                className="card hover-lift hover-glow cursor-pointer group"
+                className="card hover-lift hover-glow cursor-pointer group h-full flex flex-col"
                 onClick={() => setOpen(true)}
             >
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-700">
@@ -177,7 +178,7 @@ const PortfolioItemDiv = ({ item }: { item: PortfolioItem }) => {
                         </span>
                     )}
                 </div>
-                <button className="text-sm font-medium text-cyan-600 dark:text-amber-500 flex items-center gap-1 group-hover:gap-2 transition-all">
+                <button className="mt-auto text-sm font-medium text-cyan-600 dark:text-amber-500 flex items-center gap-1 group-hover:gap-2 transition-all">
                     View Details
                     <BiSolidRightArrowCircle className="text-base" />
                 </button>

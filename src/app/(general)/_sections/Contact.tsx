@@ -26,7 +26,7 @@ export default function Contact() {
                 initial="hidden"
                 whileInView="show"
                 variants={Motions.staggerContainer(0.1, 0.3)}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto"
             >
                 {contactList.map((item, index) => (
                     <motion.div
@@ -56,38 +56,31 @@ const ContactCard = ({
             rel="noopener noreferrer"
             className={`
                 group block p-6 rounded-2xl transition-all duration-300
-                ${isPrimary
-                    ? "bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/30 dark:to-blue-950/30 border-2 border-cyan-200 dark:border-cyan-800"
-                    : "bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800"
-                }
-                hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-500/10 dark:hover:shadow-amber-500/10
+                bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800
+                hover:border-cyan-600/40 dark:hover:border-amber-500/40
             `}
         >
             <div className={`
                 w-14 h-14 rounded-xl flex items-center justify-center mb-4
-                ${isPrimary
-                    ? "bg-gradient-to-br from-cyan-500 to-blue-500 text-white"
-                    : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 group-hover:bg-cyan-100 dark:group-hover:bg-cyan-900/30 group-hover:text-cyan-600 dark:group-hover:text-amber-500"
-                }
+                bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400
+                group-hover:bg-cyan-100 dark:group-hover:bg-cyan-900/30 group-hover:text-cyan-600 dark:group-hover:text-amber-500
                 transition-all duration-300
             `}>
                 <Icon className="text-2xl" />
             </div>
 
-            <h3 className="font-semibold text-lg text-neutral-800 dark:text-neutral-200 mb-1">
+            <h3 className="flex items-center gap-2 font-semibold text-lg text-neutral-800 dark:text-neutral-200 mb-1">
                 {name}
+                {isPrimary && (
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-cyan-600 dark:text-amber-500">
+                        Preferred
+                    </span>
+                )}
             </h3>
 
             <p className="text-sm text-neutral-500 dark:text-neutral-400 truncate">
                 {username}
             </p>
-
-            {isPrimary && (
-                <span className="inline-flex items-center gap-1.5 mt-3 text-xs font-medium text-cyan-600 dark:text-cyan-400">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    Preferred contact
-                </span>
-            )}
         </Link>
     );
 };

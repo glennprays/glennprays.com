@@ -79,7 +79,7 @@ export const NavigationBlog = () => {
                             href={item.href}
                             onClick={() => setIsHamburgerOpen(false)}
                             className={
-                                "hover:text-cyan-600 dark:hover:text-amber-500 hover:underline font-semibold "
+                                "text-base font-medium text-neutral-600 dark:text-neutral-300 hover:text-cyan-600 dark:hover:text-amber-500 transition-colors "
                             }
                         >
                             {item.name}

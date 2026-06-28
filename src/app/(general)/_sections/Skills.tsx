@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { coreExpertise, engineeringCapabilities, techStackGroups, SkillItem } from "@/constans/skills";
+import { coreExpertise, engineeringCapabilities, techStackGroups, SkillItem, aiStack, AiStackItem } from "@/constans/skills";
 import { motion } from "framer-motion";
 import { Motions } from "@/utils/motion";
 
@@ -85,6 +85,7 @@ export default function Skills() {
                     <TechStackGroup label="Databases" items={techStackGroups.databases} />
                     <TechStackGroup label="Cloud & Infra" items={techStackGroups.cloudInfra} />
                     <TechStackGroup label="Tooling" items={techStackGroups.tooling} />
+                    <AiStackGroup label="AI & LLMs" items={aiStack} />
                 </div>
             </motion.div>
         </section>
@@ -159,6 +160,53 @@ const TechItem = ({
     return (
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 hover:bg-neutral-100 dark:hover:bg-neutral-700/50 transition-colors cursor-default">
             <Image src={icon} alt={alt} width={18} height={18} />
+            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                {name}
+            </span>
+        </div>
+    );
+};
+
+// Per-brand icon colors: real brand color where one exists, faithful
+// adaptive (dark on light / light on dark) for the genuinely-monochrome marks.
+const AI_ICON_COLOR: Record<string, string> = {
+    LangGraph: "text-neutral-800 dark:text-neutral-200",
+    LangChain: "text-sky-500 dark:text-sky-300",
+    MCP: "text-neutral-800 dark:text-neutral-200",
+    Pydantic: "text-[#E92063]",
+};
+
+const AiStackGroup = ({
+    label,
+    items,
+}: {
+    label: string;
+    items: AiStackItem[];
+}) => {
+    return (
+        <div className="card">
+            <h4 className="text-sm font-semibold text-neutral-500 dark:text-neutral-500 uppercase tracking-wide mb-4">
+                {label}
+            </h4>
+            <div className="flex flex-wrap gap-3">
+                {items.map(({ name, Icon }) => (
+                    <AiTechItem key={name} name={name} Icon={Icon} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const AiTechItem = ({
+    name,
+    Icon,
+}: {
+    name: string;
+    Icon: AiStackItem["Icon"];
+}) => {
+    return (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 hover:bg-neutral-100 dark:hover:bg-neutral-700/50 transition-colors cursor-default">
+            <Icon className={`w-[18px] h-[18px] ${AI_ICON_COLOR[name] ?? "text-neutral-700 dark:text-neutral-300"}`} />
             <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
                 {name}
             </span>
