@@ -25,7 +25,11 @@ import git from "public/images/icon/tools/git.svg"
 import figma from "public/images/icon/tools/figma.svg"
 import vite from "public/images/icon/stack/vite.svg"
 import contentlayer from "public/images/icon/stack/contentlayer.svg"
+import fastapi from "public/images/icon/stack/fastapi.svg"
+import playwright from "public/images/icon/tools/playwright.svg"
 import { StaticImport } from "next/dist/shared/lib/get-img-props"
+import { ComponentType } from "react"
+import { LangGraphIcon, LangChainIcon, McpIcon, PydanticIcon } from "@/components/icons/ai"
 
 export interface SkillItem {
     name: string,
@@ -42,6 +46,10 @@ export const coreExpertise = [
     {
         title: "Backend & API Development",
         description: "Building reliable, well-structured services using Go and Node.js with clean API design",
+    },
+    {
+        title: "Agentic AI Engineering",
+        description: "Engineering the harness around LLMs, the orchestration, tools, and context that turn raw models into reliable agents",
     },
     {
         title: "Scalable Web Systems",
@@ -64,13 +72,18 @@ export const coreExpertise = [
 
 // Engineering capabilities (text only, no icons)
 export const engineeringCapabilities = [
+    "Team Leadership",
     "System Design",
     "Technical Translation",
-    "Team Leadership",
     "Code Review & Mentorship",
     "Project Planning",
     "Analytical Thinking",
     "Trade-off Analysis",
+    "Multi-Agent Orchestration",
+    "Prompt Engineering",
+    "LLM Tool Calling",
+    "Context Management",
+    "Token Efficiency",
     "REST API Design",
     "Database Optimization",
     "Caching Strategies",
@@ -100,6 +113,7 @@ export const techStackGroups = {
         { name: "Node.js", icon: node, alt: "Node.js Icon" },
         { name: "NestJS", icon: nestjs, alt: "NestJS Icon" },
         { name: "Flask", icon: flask, alt: "Flask Icon" },
+        { name: "FastAPI", icon: fastapi, alt: "FastAPI Icon" },
     ],
     databases: [
         { name: "PostgreSQL", icon: postgresql, alt: "PostgreSQL Icon" },
@@ -122,6 +136,7 @@ export const techStackGroups = {
         { name: "Figma", icon: figma, alt: "Figma Icon" },
         { name: "Vite", icon: vite, alt: "Vite Icon" },
         { name: "Contentlayer", icon: contentlayer, alt: "Contentlayer Icon" },
+        { name: "Playwright", icon: playwright, alt: "Playwright Icon" },
     ],
 }
 
@@ -133,4 +148,18 @@ export const stackList: SkillItem[] = [
     ...techStackGroups.databases,
     ...techStackGroups.cloudInfra,
     ...techStackGroups.tooling,
+]
+
+// AI & LLMs group. Uses inline component icons (theme-aware), kept separate
+// from stackList / SkillItem so the Portfolio name-lookup contract is untouched.
+export interface AiStackItem {
+    name: string,
+    Icon: ComponentType<{ className?: string }>,
+}
+
+export const aiStack: AiStackItem[] = [
+    { name: "LangGraph", Icon: LangGraphIcon },
+    { name: "LangChain", Icon: LangChainIcon },
+    { name: "MCP", Icon: McpIcon },
+    { name: "Pydantic", Icon: PydanticIcon },
 ]
