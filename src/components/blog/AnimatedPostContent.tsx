@@ -1,8 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
-import { Motions } from "@/utils/motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface AnimatedPostContentProps {
     children: ReactNode;
@@ -13,6 +12,10 @@ export default function AnimatedPostContent({
     children,
     className = "",
 }: AnimatedPostContentProps) {
+    const reduce = useReducedMotion();
+    if (reduce) {
+        return <div className={className}>{children}</div>;
+    }
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
