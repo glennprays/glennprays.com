@@ -20,7 +20,7 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
-import { MOTIFS, ogTemplate, renderPng } from "./og-lib.mjs";
+import { PATTERN_NAMES, ogTemplate, renderPng } from "./og-lib.mjs";
 
 const ROOT = process.cwd();
 const BLOG_DIR = path.join(ROOT, "src", "blogs");
@@ -34,13 +34,16 @@ const sha1 = (s) => crypto.createHash("sha1").update(s).digest("hex").slice(0, 1
 // is invalidated so the new look propagates.
 const ENGINE_HASH = sha1(fs.readFileSync(path.join(ROOT, "scripts", "og-lib.mjs"), "utf8"));
 
-// Stable per-slug motif so each post gets a distinct background without any
+// Stable per-slug pattern so each post gets a distinct background without any
 // frontmatter. An explicit `ogVariant` always wins over this default.
 function pickVariant(slug) {
-  const keys = Object.keys(MOTIFS);
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
-  return keys[h % keys.length];
+  // FNV-1a — spreads the slugs across patterns more evenly than a plain hash.
+  let h = 2166136261;
+  for (let i = 0; i < slug.length; i++) {
+    h ^= slug.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return PATTERN_NAMES[(h >>> 0) % PATTERN_NAMES.length];
 }
 
 function loadManifest() {
@@ -74,8 +77,8 @@ async function main() {
     }
 
     const text = String(data.ogTitle ?? data.title ?? slug);
-    const variant = MOTIFS[data.ogVariant] ? String(data.ogVariant) : pickVariant(slug);
-    const key = sha1(`${variant}|${text}|${ENGINE_HASH}`);
+    const pattern = PATTERN_NAMES.includes(data.ogVariant) ? String(data.ogVariant) : pickVariant(slug);
+    const key = sha1(`${pattern}|${text}|${ENGINE_HASH}`);
     next[slug] = key;
 
     const outPath = path.join(OUT_DIR, `${slug}.png`);
@@ -84,9 +87,9 @@ async function main() {
       continue;
     }
 
-    fs.writeFileSync(outPath, await renderPng(ogTemplate({ text, variant })));
+    fs.writeFileSync(outPath, await renderPng(ogTemplate({ text, pattern })));
     made++;
-    console.log(`og: ${slug}.png (${variant})`);
+    console.log(`og: ${slug}.png (${pattern})`);
   }
 
   fs.writeFileSync(MANIFEST, `${JSON.stringify(next, null, 2)}\n`);

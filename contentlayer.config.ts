@@ -25,11 +25,8 @@ const prettyCodeOptions = {
 
 const topicsList = blogTopics.map((blog) => blog.name);
 
-// Background motifs available for the generated OG card (see scripts/og-lib.mjs).
-const ogMotifs = [
-    "network", "ripple", "signal", "minimal", "blueprint", "aurora",
-    "flowfield", "perspective", "contour", "hexgrid", "circuit", "orbit", "isostack",
-];
+// Background patterns available for the generated OG card (see scripts/og-lib.mjs).
+const ogPatterns = ["dots", "grid", "rings", "plus", "diagonals", "waves"];
 
 const Blog = defineDocumentType(() => ({
     name: "Blog",
@@ -75,8 +72,8 @@ const Blog = defineDocumentType(() => ({
         },
         ogVariant: {
             type: "enum",
-            options: ogMotifs,
-            description: "Background motif for the generated OG card",
+            options: ogPatterns,
+            description: "Background pattern for the generated OG card",
             required: false,
         },
     },
