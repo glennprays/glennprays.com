@@ -92,7 +92,7 @@ export default function TableOfContents({
     }
 
     return (
-        <nav className="sticky top-24 hidden self-start xl:block">
+        <nav aria-label="Table of contents">
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 On this page
             </h4>

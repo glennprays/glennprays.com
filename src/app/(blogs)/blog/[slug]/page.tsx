@@ -113,7 +113,7 @@ export default async function Page({ params }: Props) {
                 </AnimatedPostContent>
                 <span className="text-sm">Author: {blog?.author}</span>
             </article>
-            <aside className="hidden xl:block">
+            <aside className="hidden self-start sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto xl:block">
                 <TableOfContents variant="sidebar" headings={headings} />
             </aside>
         </div>

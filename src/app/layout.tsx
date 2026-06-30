@@ -44,7 +44,7 @@ export default function RootLayout({
             <body className={fontFamily.className}>
                 <Provider>
                     <div className="bg-neutral-200 dark:bg-neutral-900">
-                        <div className="min-h-screen w-full overflow-x-hidden flex flex-col pt-24">
+                        <div className="min-h-screen w-full overflow-x-clip flex flex-col pt-24">
                             {children}
                         </div>
                         <Footer />

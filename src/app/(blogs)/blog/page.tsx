@@ -4,15 +4,8 @@ import { allBlogs } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import Link from "next/link";
 import { AiOutlineCompass } from "react-icons/ai";
-import { pagination } from "@/constans/blog";
+import { paginationConfig } from "@/constans/blogPagination";
 import AnimatedSection from "@/components/element/AnimatedSection";
-
-export const paginationConfig = new pagination(
-    "/blog",
-    "/blog/page",
-    allBlogs.length,
-    5
-);
 
 export default function Page() {
     const { firstPagePath, basePath, totalPages, showedPages, blogsPerPage } =

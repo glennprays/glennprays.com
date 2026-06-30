@@ -2,7 +2,7 @@ import { allBlogs } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import BlogCard from "@/components/element/BlogCard";
 import Pagination from "@/components/element/Pagination";
-import { paginationConfig } from "../../page";
+import { paginationConfig } from "@/constans/blogPagination";
 
 type Props = {
     params: {
