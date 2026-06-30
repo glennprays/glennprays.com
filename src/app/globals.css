@@ -96,6 +96,12 @@ code:not(pre code) {
     text-decoration: none;
 }
 
+/* Brighter post body text than the default prose grey, for readability. */
+.prose {
+    --tw-prose-body: #374151;
+    --tw-prose-invert-body: #e5e5e5;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     *,

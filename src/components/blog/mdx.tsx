@@ -6,6 +6,11 @@ import Figure from "./Figure";
 import { StatBand, Stat } from "./StatBand";
 import CountUp from "./CountUp";
 import DisclosureTimeline from "./DisclosureTimeline";
+import AgentLoop from "./AgentLoop";
+import ScenarioFlow from "./ScenarioFlow";
+import HarnessAnatomy from "./HarnessAnatomy";
+import Progression from "./Progression";
+import ConceptGrid from "./ConceptGrid";
 
 function A({ href = "", children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
     const isInternal = href.startsWith("/") || href.startsWith("#");
@@ -34,4 +39,9 @@ export const mdxComponents = {
     Stat,
     CountUp,
     DisclosureTimeline,
+    AgentLoop,
+    ScenarioFlow,
+    HarnessAnatomy,
+    Progression,
+    ConceptGrid,
 };

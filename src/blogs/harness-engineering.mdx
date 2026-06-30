@@ -1,0 +1,94 @@
+---
+title: "Your AI Has a Brain. It Needs a Body."
+short_title: Harness Engineering
+date: 2026-06-30
+description: Your model is a genius with no hands. Harness engineering is how you give it a body, and the thing that actually makes an AI agent reliable.
+author: Glenn Pray
+tag: "AI Engineering"
+ogTitle: Harness Engineering
+ogVariant: rings
+---
+
+Here's the thing nobody tells you when you start building with AI: the model is the easy part.
+
+You can hand the smartest model on earth your credit card, your calendar, and a link, and ask it to buy a concert ticket. It'll reason through it perfectly. It'll even say "ordering it now." And then... nothing happens. It's a brain in a jar. Brilliant, and completely stuck.
+
+The piece that's missing finally has a name, and in 2026 it's the thing everyone building serious agents is obsessed with: the **harness**.
+
+## It started with prompts
+
+We got here in three short eras.
+
+<Progression />
+
+First we obsessed over prompts, because context windows were tiny (around 4k tokens) and every word was a fight. Then the windows blew up to 128k and beyond, and the game became context: feed the model everything it needs to actually understand the situation. And now we've hit the wall where context still isn't enough, which is where harness engineering begins.
+
+The term itself got its name from Mitchell Hashimoto (yeah, the Terraform guy) earlier this year, and the rest of the field landed on the same map: [Martin Fowler](https://martinfowler.com/articles/harness-engineering.html), [Anthropic](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), all of them. The formula they keep repeating is simple: **Agent = Model + Harness.** The model reasons. The harness does everything else.
+
+## So what's an agent, really?
+
+Strip away the hype and an agent is almost embarrassingly simple. It's a loop wrapped around an LLM. The model makes a decision, something acts on it, the world answers back, and that answer goes to the model. Again. And again. Until the goal is done, with barely a human in the middle.
+
+<AgentLoop />
+
+That loop is what makes it "agentic": it acts on its own, makes its own calls, chases a goal autonomously. Cool. But here's the problem.
+
+## Why context isn't enough
+
+An LLM runs on probability. Same input, slightly different output, every single time. That's wonderful for writing and brainstorming, and absolutely terrifying for a system that's supposed to spend your money or touch production.
+
+Context, all that history and knowledge you stuff into the window, only gives the model *understanding*. It does not give it a way to *act*. It can't change anything, can't enforce a rule, can't reach out and touch the world.
+
+<Callout variant="info" title="The whole idea in one line">
+The model is the **brain**: reasoning and judgment. The harness is the **body**: hands, reflexes, memory, senses, the skeleton that holds it all up. A brain with no body is just a very expensive chatbot.
+</Callout>
+
+## Let me show you what I mean
+
+Back to that concert ticket. A $30 seat, simple ask. Except the website has a glitch that jumps the price to $300 right at checkout. Watch what happens as we add one layer at a time.
+
+<ScenarioFlow />
+
+Look at that progression. Context alone is all talk. Add a harness and it finally has hands, but no judgment, so it drains your account. Add guardrails and it's safe, but it just gives up. Add a real workflow and it routes around the failure and actually gets you the ticket.
+
+Four layers, four completely different endings.
+
+## Four words that keep it straight
+
+Once you've seen that, the vocabulary clicks into place.
+
+<ConceptGrid />
+
+Context is the goal, harness is the power, guardrails are the safety, workflow is the strategy. Mix them up and you build the wrong thing: a chatbot when you needed an agent, or a loose cannon when you needed a seatbelt.
+
+## The anatomy of a harness
+
+So if the harness is the body, what are the organs? When I build one, it comes down to six parts.
+
+<HarnessAnatomy />
+
+Notice how few of those are "prompting." The hands, the notebook, the sandbox, the critic, the panic button, the black box, that's plumbing. That's engineering.
+
+## The uncomfortable truth
+
+Here's the part that surprises people. A harness is not a long, clever prompt with a pile of rules in it. It's mostly *code*: real backend logic, schemas, runtimes, validation, wrapping the model in layers. In my own builds it lands around **80% engineering, 20% prompt and config**, and that ratio is the whole point.
+
+And this is the part people get backwards. Putting an AI agent in your system does not make it *less* code. If anything, it makes it more. The model is one small, fuzzy part sitting in the middle. Everything that keeps it safe, repeatable, and actually useful is still code you have to write. An agent doesn't shrink your codebase, it wraps a probabilistic core in a thick shell of very ordinary engineering. The AI doesn't replace the work. It moves the work into the harness.
+
+<StatBand>
+  <Stat value="~80%" label="of a harness is code, not prompt" />
+  <Stat label="of failures trace to the harness, not the model"><CountUp to={65} suffix="%" /></Stat>
+  <Stat value="swappable" label="the model is a part you can replace" />
+</StatBand>
+
+There's a line I keep coming back to: **the harness, not the model, is the unit of engineering.** Models come and go. A better one drops every few months and you swap it in. The harness is the part you actually own, the part that carries your judgment about how the work should be done.
+
+It's also the part that rots if you let it. Every bad run tempts you to bolt on one more flag, one more rule, one more special case, until the whole thing is a haunted house. Good harnesses grow by *subtraction*: fewer moving parts, hard ceilings, ruthless about what earns its place.
+
+## The bridge
+
+So that's harness engineering in one picture. It's the bridge between deterministic code and probabilistic AI. On one side, software that does exactly what you tell it, every time. On the other, a model that's brilliant and a little unpredictable. The harness is what lets you hand the unpredictable thing real work, by keeping the smart-but-fuzzy surface small and the boring-but-reliable surface large.
+
+The model is the spark. The harness is everything that turns that spark into something you'd actually let near your bank account.
+
+And honestly? Building the body is the fun part.
