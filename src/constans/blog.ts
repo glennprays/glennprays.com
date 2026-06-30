@@ -17,6 +17,11 @@ const blogCategories: BlogCategory[] = [
         description:
             "Data science is an interdisciplinary field that combines techniques from statistics, mathematics, computer science, and domain expertise to extract knowledge and insights from data. It involves collecting, cleaning, and processing large datasets to uncover hidden patterns, trends, and valuable information. ",
     },
+    {
+        name: "AI Engineering",
+        description:
+            "AI engineering is about building real systems around the model, not just calling it. It covers agents, harnesses, tools, memory, and the whole infrastructure that turns a probabilistic LLM into something reliable enough to act on its own.",
+    },
 ];
 
 export const blogTopics = blogCategories.map((category, index) => {
