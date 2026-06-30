@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { RefObject, useState } from "react";
 import { FiCopy, FiCheck } from "react-icons/fi";
 
 interface CopyCodeButtonProps {
-    code: string;
+    /** Explicit code string, or read live text from a target element ref. */
+    code?: string;
+    targetRef?: RefObject<HTMLElement>;
 }
 
-export default function CopyCodeButton({ code }: CopyCodeButtonProps) {
+export default function CopyCodeButton({ code, targetRef }: CopyCodeButtonProps) {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = async () => {
+        const text = code ?? targetRef?.current?.textContent ?? "";
+        if (!text) return;
         try {
-            await navigator.clipboard.writeText(code);
+            await navigator.clipboard.writeText(text);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {

@@ -17,7 +17,7 @@ export const NavigationBlog = () => {
         if (isHamburgerOpen) {
             document.body.style.overflowY = "hidden";
         } else {
-            document.body.style.overflowY = "auto";
+            document.body.style.overflowY = "";
         }
     }, [isHamburgerOpen]);
 

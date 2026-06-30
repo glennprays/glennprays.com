@@ -60,6 +60,42 @@ code:not(pre code) {
     @apply px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-700 text-sm font-mono;
 }
 
+/* rehype-pretty-code (shiki) blocks */
+[data-rehype-pretty-code-figure] {
+    @apply my-6;
+}
+[data-rehype-pretty-code-figure] pre {
+    @apply overflow-x-auto rounded-lg py-4 text-sm leading-relaxed;
+}
+[data-rehype-pretty-code-figure] pre code {
+    @apply grid p-0 bg-transparent text-sm;
+    white-space: pre;
+    counter-reset: line;
+}
+[data-rehype-pretty-code-figure] [data-line] {
+    @apply px-4 border-l-2 border-transparent;
+}
+[data-rehype-pretty-code-figure] .line--highlighted {
+    @apply border-cyan-600/70 bg-cyan-400/10 dark:border-amber-500/70 dark:bg-amber-400/10;
+}
+[data-rehype-pretty-code-figure] .word--highlighted {
+    @apply rounded bg-cyan-400/20 px-1 dark:bg-amber-400/20;
+}
+[data-rehype-pretty-code-title] {
+    @apply rounded-t-lg border-b border-neutral-700 bg-neutral-800 px-4 py-2 font-mono text-xs text-neutral-300;
+}
+[data-rehype-pretty-code-title] + pre {
+    @apply mt-0 rounded-t-none;
+}
+
+/* rehype-autolink-headings wraps heading text in an anchor; keep headings
+   looking like headings, not underlined/recolored links. */
+.prose :where(h1, h2, h3, h4, h5, h6) a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     *,

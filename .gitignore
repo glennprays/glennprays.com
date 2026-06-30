@@ -37,5 +37,8 @@ next-env.d.ts
 # contentlayer
 .contentlayer
 
-# blog og image
+# OG: public/og (per-post cards + og-manifest.json) is committed and reused;
+# the generator only re-renders posts whose title/variant/engine changed.
+# The preview dump is browse-only and not committed.
+/public/og-preview
 /public/images/blog/.opengraph
