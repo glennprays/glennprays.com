@@ -2,7 +2,7 @@
 title: "Why Your Agent Keeps Forgetting"
 short_title: Agent Memory
 date: 2026-07-08
-description: More memory doesn't make a smarter agent. Past a point it makes a worse one. The six layers that actually work, and why forgetting is the point.
+description: More memory can quietly make an agent worse. Here are the six layers of agent memory that actually work, and why deliberate forgetting matters.
 author: Glenn Pray
 tag: "AI Engineering"
 ogTitle: Agent Memory
@@ -11,17 +11,17 @@ ogVariant: plus
 
 Build an agent long enough and you hit the same wall. It runs a job, does it well, finishes. You hand it the next job, the one that builds on the last, and it starts from absolute zero. No memory of the work it just did, no memory of the dead end it already hit, no memory of the thing it figured out ten minutes ago. Every run is amnesia. You pay again for conclusions it already reached.
 
-This isn't a bug. It's the model. And it's the first wall you hit when you stop calling an API and start building an actual agent.
+That amnesia comes straight from the model, and it's the first wall you hit when you stop calling an API and start building an actual agent.
 
-Before the ladder, one thing has to click, because it's the reason any of this matters: **the model is stateless.**
+Before the ladder, one thing has to be clear, because everything else follows from it: **the model is stateless.**
 
 A large language model has no memory. None. Every time you call it, it starts with a completely blank slate. It doesn't know what happened in the previous call, let alone last Tuesday's run. The only reason it ever seems to remember anything is that you, or the system around it, feed the previous turn back in as context. Cut that context and the agent is back to zero.
 
 <StatelessModel />
 
-So agent memory is never the model remembering. The model can't. Memory is everything you build around the model to give it a past.
+So agent memory is never really the model remembering. It can't. Memory is everything you build around it to give it a past.
 
-The fix is memory. But here's the part that trips people up: "memory" isn't one thing. There's no single box called agent memory you bolt on. It's a ladder. Six layers, cheapest to richest, and you climb it one rung at a time as your agent outgrows each one.
+The fix is memory, and this is where people go wrong: "memory" isn't one thing. There's no single box called agent memory you bolt on. It's a ladder of six layers, cheapest to richest, and you climb it one rung at a time as your agent outgrows each one.
 
 Let me show you how I build it. We'll follow one agent doing real work, the kind that runs across many turns and gets smarter the more it runs. Watch it gain a new kind of memory at every step.
 
@@ -29,7 +29,7 @@ Let me show you how I build it. We'll follow one agent doing real work, the kind
 
 If you want a feel for it before the details, think of a new hire. Day one they hold the whole task in their head. Soon they're scribbling sticky notes so they don't lose their place. Then a desk drawer that survives overnight. Then a memory of how last week's job went. Then instinct, hard-won from a hundred tasks. And eventually the company wiki, for the stuff their own experience never covered.
 
-Six layers. Each one earns its place only when the rung below stops being enough. And here's the thing that ties them together: the model box never changes. What changes, at every rung, is what you read in before the call and what you write out after. You'll see that little diagram at each step.
+Six layers, and each one earns its place only when the rung below stops being enough. One thing stays constant across all of them: the model box never changes. What changes at every rung is what you read in before the call and what you write out after. You'll see that diagram at each step.
 
 Walk them with me, from the cheapest up.
 
@@ -41,48 +41,48 @@ Start here, because it's free. Everything the agent knows right now lives in its
 
 Your agent starts a task, reads the instructions, takes in whatever's in front of it. All in the window. Done.
 
-The catch: the window is small and it vanishes the moment the run ends. Worse, the agent can't show its work, so it jumps straight to a conclusion and gets it wrong. That's the first trigger.
+The catch: the window is small and it vanishes the moment the run ends. Worse, the agent can't show its work, so it jumps straight to a conclusion and gets it wrong. That last part is what pushes you up a rung.
 
 ## Layer 2: The scratchpad
 
-The trigger was: it leaps before it reasons. So give it a scratchpad. A place to write intermediate notes, draft a hypothesis, list its steps before taking them. Think before you act. Still inside the window, but intentional now instead of hopeful.
+It leaps before it reasons, so give it a scratchpad. A place to write intermediate notes, draft a hypothesis, list its steps before taking them. Think before you act. Still inside the window, but now it's deliberate.
 
 <LayerFlow layer="scratch" />
 
 The agent writes: "Working hypothesis, this looks like case X. Steps: verify A, then B, then decide." It reasons out loud, and the conclusions get noticeably better.
 
-Then you restart the process and it's all gone. Every note, every half-finished thought, wiped. It starts the whole task over from scratch. That's the next trigger.
+Then you restart the process and it's all gone. Every note, every half-finished thought, wiped. It starts the whole task over from scratch. There's your next problem.
 
 ## Layer 3: Persistent state
 
-The trigger was: a restart wipes everything. So give it real storage. A database, a key-value store, something the agent reads from and writes to that survives the process ending. This is the notebook you control. Now it can save "Task #42, step 3 of 6," die, wake up, and pick up exactly where it left off.
+A restart wipes everything, so give it real storage. A database, a key-value store, something the agent reads from and writes to that survives the process ending. This is the notebook you control. Now it can save "Task #42, step 3 of 6," die, wake up, and pick up exactly where it left off.
 
 <LayerFlow layer="state" />
 
 This is the layer most teams skip, and it's why their agents feel amnesiac. They jump straight to the fancy stuff and never give the agent a place to put its keys down.
 
-But state alone is dumb storage. It remembers what happened, not what it meant. Run it again and it makes the exact same mistake it made last Tuesday, because it has no memory of last Tuesday as an experience, only as data. That's the trigger.
+But state alone is dumb storage. It remembers what happened, not what it meant. Run it again and it repeats the exact mistake it made last Tuesday, because it stored last Tuesday as data, with no sense of it as an experience. Which is exactly what sends you up the next rung.
 
 ## Layer 4: Episodic memory
 
-The trigger was: it repeats its own mistakes. So start keeping a journal. Every action, every observation, every outcome, logged. Now when a new task starts, the agent can look back and ask, "how did task #17 go?" Retrieve by recency, or by similarity to the current situation.
+It keeps repeating its own mistakes, so start keeping a journal. Every action, every observation, every outcome, written down. Now when a new task starts, the agent can look back and ask, "how did task #17 go?" Retrieve by recency, or by similarity to the current situation.
 
 <LayerFlow layer="episodic" />
 
-This is episodic memory, a record of what happened to you. It's wildly useful, and it's also where things start to rot. Fast-forward a few hundred runs and the journal is enormous. Every retrieval drags back a pile of vaguely-related old runs, most of them irrelevant, and the actually-useful patterns are buried in the noise. That's the trigger.
+This is episodic memory, a record of what happened to you. It's wildly useful, and it's also where things start to rot. Fast-forward a few hundred runs and the journal is enormous. Every retrieval drags back a pile of vaguely-related old runs, most of them irrelevant, and the actually-useful patterns are buried in the noise. Time to climb again.
 
 ## Layer 5: Consolidated memory
 
-The trigger was: the journal is huge and noisy. So do what your own brain does when you sleep. Consolidate. Take the pile of episodes and distill them into lessons. "This signal usually means X." "Last time I tried Y, it failed for this reason." Compact, structured, the patterns with the noise stripped out.
+The journal is huge and noisy, so do what your own brain does when you sleep. Consolidate. Take the pile of episodes and distill them into lessons. "This signal usually means X." "Last time I tried Y, it failed for this reason." Compact, structured, the patterns with the noise stripped out.
 
 <LayerFlow layer="consolidated" />
 
-This is the layer nobody talks about, and it's the whole game. Because here's the truth: memory is a write problem, not a read problem. Everyone reaches for better retrieval, and retrieval over the wrong memory is just faster wrong answers. The hard, valuable work is on the write side. What earns a place? What gets compressed into a one-line lesson? And the spookiest one: what do you forget?
+This layer gets skipped, and it matters more than any of them, because memory is really a write problem. Everyone reaches for better retrieval, and retrieval over the wrong memory just gives you faster wrong answers. The hard, valuable work is on the write side. What earns a place? What gets compressed into a one-line lesson? And the hardest question of all: what do you forget?
 
 We'll come back to forgetting. First, the rung everyone wants to start on.
 
 <Callout variant="warning" title="The RAG reflex">
-If your agent is forgetting, your first instinct will be to bolt on a vector database. It's almost always wrong. Walk the ladder from the bottom first: context, scratchpad, state, episodic, consolidated. Each one is cheaper and more reliable than the rung above it. Most amnesia is a missing layer-3 or layer-4 problem, not a retrieval problem.
+If your agent is forgetting, your first instinct will be to bolt on a vector database. It's almost always wrong. Walk the ladder from the bottom first: context, scratchpad, state, episodic, consolidated. Each one is cheaper and more reliable than the rung above it. Most amnesia comes from a missing layer 3 or layer 4, long before retrieval enters the picture.
 </Callout>
 
 ## Layer 6: Retrieval (the one they call RAG)
@@ -95,9 +95,9 @@ It works. It has a real place. But understand what you're buying. Retrieval is t
 
 ## Forgetting on purpose
 
-Now back to the spookiest question. What do you forget?
+Now back to the hardest question. What do you forget?
 
-A memory that never forgets is useless. Every run you log, every episode you keep, every lesson you write, the haystack gets bigger and the needle gets harder to find. And it's not just a search problem. Stuff more into the context and the model's recall actively rots, its attention spreads thin and the wrong detail starts calling the shots. Past a point, more memory doesn't just fail to help, it hurts. The agent that remembers everything remembers nothing. Good memory systems forget on purpose. They compress old episodes into lessons and drop the raw logs. They decay things that haven't been touched in a while. They evict what isn't earning its place. Forgetting isn't a bug you tolerate, it's a feature you design.
+A memory that never forgets is useless. Every run you log, every episode you keep, every lesson you write, the haystack grows and the needle gets harder to find. And the damage runs deeper than search. Stuff more into the context and the model's recall actively rots: its attention spreads thin and the wrong detail starts calling the shots. Past a point, more memory actively hurts. An agent that remembers everything effectively remembers nothing. Good memory systems forget on purpose. They compress old episodes into lessons and drop the raw logs. They decay what hasn't been touched in a while. They evict what isn't earning its place. Forgetting is a deliberate design decision, and getting it right is what separates a memory system that helps from one that slowly chokes.
 
 The model retrieves. The harness decides what's worth keeping.
 
@@ -115,4 +115,4 @@ That's the ladder. Six layers, cheapest to richest, climbed one trigger at a tim
 
 Notice how little of that is the model. The model reads and writes the memory. Everything that decides what gets kept, what gets compressed, what gets forgotten, that's engineering. Memory is one of the harness's organs, and like the rest of them, it's mostly code, not prompting.
 
-When I build these, I don't start at layer 6. I start at layer 1 and I listen for the trigger. The craft isn't knowing all the layers. It's knowing which one you're standing on, and what's telling you to climb.
+When I build these, I don't start at layer 6. I start at layer 1 and listen for the trigger. The craft is knowing which layer you're standing on, and what's telling you to climb.

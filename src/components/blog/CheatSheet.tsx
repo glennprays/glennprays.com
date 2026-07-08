@@ -13,7 +13,7 @@ const ROWS: Row[] = [
     },
     {
         layer: "2. Scratchpad",
-        when: "The task needs real steps, not one blind leap",
+        when: "The task needs real steps before an answer",
         up: "Big quality lift, still no infra",
         down: "Eats tokens, wiped on restart",
     },
@@ -31,7 +31,7 @@ const ROWS: Row[] = [
     },
     {
         layer: "5. Consolidated",
-        when: "The log's too big, you want patterns not replays",
+        when: "The journal's too big, you want distilled patterns",
         up: "Compact, generalizes, reusable",
         down: "Hardest to get right, bad lessons bake in",
     },

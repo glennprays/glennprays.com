@@ -1,35 +1,57 @@
 type LayerKey = "context" | "scratch" | "state" | "episodic" | "consolidated" | "rag";
 
-const LAYERS: Record<LayerKey, { read: string[]; write: string[] }> = {
-    context: { read: ["full conversation", "resent every call"], write: [] },
-    scratch: { read: [], write: ["scratch notes", "reasoning before the answer"] },
-    state: { read: ["saved state", "read from store"], write: ["updated state", "written to store"] },
-    episodic: { read: ["similar past runs", "from the log"], write: ["this run", "appended to log"] },
-    consolidated: { read: ["distilled lessons", "from lessons store"], write: ["lessons refined", "over time"] },
-    rag: { read: ["matching chunks", "vector search over corpus"], write: [] },
+type IO = { what: string; where: string } | null;
+
+const LAYERS: Record<LayerKey, { read: IO; write: IO }> = {
+    context: {
+        read: { what: "The full conversation", where: "resent on every call" },
+        write: null,
+    },
+    scratch: {
+        read: null,
+        write: { what: "Reasoning and scratch notes", where: "into the window, before it answers" },
+    },
+    state: {
+        read: { what: "Saved task state", where: "from your datastore" },
+        write: { what: "Updated task state", where: "back to your datastore" },
+    },
+    episodic: {
+        read: { what: "Similar past runs", where: "pulled from the journal" },
+        write: { what: "This run's outcome", where: "appended to the journal" },
+    },
+    consolidated: {
+        read: { what: "Distilled lessons", where: "from the lessons store" },
+        write: { what: "Refined lessons", where: "merged in over time" },
+    },
+    rag: {
+        read: { what: "Matching chunks", where: "vector search over the corpus" },
+        write: null,
+    },
 };
 
-function Slot({ label, dot, items }: { label: string; dot: string; items: string[] }) {
-    const empty = items.length === 0;
+function Slot({ kind, io }: { kind: "read" | "write"; io: IO }) {
+    const isRead = kind === "read";
+    const dot = isRead ? "bg-cyan-500" : "bg-amber-500";
+    const label = isRead ? "Reads in" : "Writes out";
     return (
-        <div className="flex-1 rounded-lg border border-neutral-200 bg-white p-2.5 dark:border-neutral-800 dark:bg-neutral-900">
-            <div className="mb-1.5 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500">
+        <div className="flex-1 rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500">
                 <span className={`inline-block h-1.5 w-1.5 rounded-full ${dot}`} />
                 {label}
             </div>
-            {empty ? (
-                <p className="text-xs italic text-neutral-400 dark:text-neutral-600">nothing</p>
+            {io ? (
+                <div>
+                    <div className="text-sm font-medium leading-snug text-neutral-800 dark:text-neutral-200">
+                        {io.what}
+                    </div>
+                    <div className="mt-0.5 text-xs leading-snug text-neutral-500 dark:text-neutral-400">
+                        {io.where}
+                    </div>
+                </div>
             ) : (
-                <ul className="flex flex-col gap-1">
-                    {items.map((it) => (
-                        <li
-                            key={it}
-                            className="rounded bg-neutral-100 px-1.5 py-0.5 text-[11px] text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
-                        >
-                            {it}
-                        </li>
-                    ))}
-                </ul>
+                <p className="text-xs italic text-neutral-400 dark:text-neutral-600">
+                    {isRead ? "nothing new read in" : "nothing written out"}
+                </p>
             )}
         </div>
     );
@@ -42,7 +64,7 @@ export default function LayerFlow({ layer }: { layer: LayerKey }) {
     if (!data) return null;
     return (
         <div className="not-prose my-6 flex flex-col items-stretch gap-1 sm:flex-row sm:items-center sm:gap-2">
-            <Slot label="read" dot="bg-cyan-500" items={data.read} />
+            <Slot kind="read" io={data.read} />
             <div className={arrowClass}>
                 <span className="rotate-90 sm:rotate-0">&rarr;</span>
             </div>
@@ -54,7 +76,7 @@ export default function LayerFlow({ layer }: { layer: LayerKey }) {
             <div className={arrowClass}>
                 <span className="rotate-90 sm:rotate-0">&rarr;</span>
             </div>
-            <Slot label="write" dot="bg-amber-500" items={data.write} />
+            <Slot kind="write" io={data.write} />
         </div>
     );
 }
