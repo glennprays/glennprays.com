@@ -14,7 +14,7 @@ const RUNGS: Rung[] = [
         n: "01",
         name: "Context window",
         trigger: "It jumps to conclusions, can't show its work.",
-        memory: "Brief + live findings in the prompt",
+        memory: "The task, held in mind",
     },
     {
         n: "02",
@@ -26,13 +26,13 @@ const RUNGS: Rung[] = [
         n: "03",
         name: "Persistent state",
         trigger: "It repeats a mistake, last run is gone.",
-        memory: "Investigation #42, step 3/6 saved, survives restart",
+        memory: "Task #42, step 3 of 6, survives a restart",
     },
     {
         n: "04",
         name: "Episodic memory",
         trigger: "The journal is huge and noisy, patterns are buried.",
-        memory: "Recalls how investigation #17 went",
+        memory: "Remembers how task #17 went",
     },
     {
         n: "05",
