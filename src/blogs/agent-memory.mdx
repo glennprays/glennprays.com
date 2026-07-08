@@ -23,9 +23,11 @@ So agent memory is never the model remembering. The model can't. Memory is every
 
 The fix is memory. But here's the part that trips people up: "memory" isn't one thing. There's no single box called agent memory you bolt on. It's a ladder. Six layers, cheapest to richest, and you climb it one rung at a time as your agent outgrows each one.
 
-Let me show you how I build it. We'll use a research agent, the kind that digs into a topic, builds understanding over many runs, and gets smarter the more it works. Watch the same agent gain a new kind of memory at every step.
+Let me show you how I build it. We'll follow one agent doing real work, the kind that runs across many turns and gets smarter the more it runs. Watch it gain a new kind of memory at every step.
 
 <MemoryLadder />
+
+If you want a feel for it before the details, think of a new hire. Day one they hold the whole task in their head. Soon they're scribbling sticky notes so they don't lose their place. Then a desk drawer that survives overnight. Then a memory of how last week's job went. Then instinct, hard-won from a hundred tasks. And eventually the company wiki, for the stuff their own experience never covered.
 
 Six layers. Each one earns its place only when the rung below stops being enough. And here's the thing that ties them together: the model box never changes. What changes, at every rung, is what you read in before the call and what you write out after. You'll see that little diagram at each step.
 
@@ -33,11 +35,11 @@ Walk them with me, from the cheapest up.
 
 ## Layer 1: The context window
 
-Start here, because it's free. Everything the agent knows right now lives in its context window: the prompt, the brief, whatever findings are in front of it. This is working memory, the agent's consciousness, the thing it's actually thinking about this second.
+Start here, because it's free. Everything the agent knows right now lives in its context window: the prompt, the instructions, whatever's in front of it. This is working memory, the agent's consciousness, the thing it's actually thinking about this second.
 
 <LayerFlow layer="context" />
 
-Our research agent opens a new investigation, reads the brief, scans the live findings. All in the window. Done.
+Your agent starts a task, reads the instructions, takes in whatever's in front of it. All in the window. Done.
 
 The catch: the window is small and it vanishes the moment the run ends. Worse, the agent can't show its work, so it jumps straight to a conclusion and gets it wrong. That's the first trigger.
 
@@ -47,13 +49,13 @@ The trigger was: it leaps before it reasons. So give it a scratchpad. A place to
 
 <LayerFlow layer="scratch" />
 
-Our agent writes: "Working hypothesis, this looks like case X. Steps: verify A, then B, then decide." It reasons out loud, and the conclusions get noticeably better.
+The agent writes: "Working hypothesis, this looks like case X. Steps: verify A, then B, then decide." It reasons out loud, and the conclusions get noticeably better.
 
-Then you restart the process and it's all gone. Every note, every half-finished thought, wiped. It starts the whole investigation over from scratch. That's the next trigger.
+Then you restart the process and it's all gone. Every note, every half-finished thought, wiped. It starts the whole task over from scratch. That's the next trigger.
 
 ## Layer 3: Persistent state
 
-The trigger was: a restart wipes everything. So give it real storage. A database, a key-value store, something the agent reads from and writes to that survives the process ending. This is the notebook you control. Now it can save "Investigation #42, step 3 of 6," die, wake up, and pick up exactly where it left off.
+The trigger was: a restart wipes everything. So give it real storage. A database, a key-value store, something the agent reads from and writes to that survives the process ending. This is the notebook you control. Now it can save "Task #42, step 3 of 6," die, wake up, and pick up exactly where it left off.
 
 <LayerFlow layer="state" />
 
@@ -63,7 +65,7 @@ But state alone is dumb storage. It remembers what happened, not what it meant. 
 
 ## Layer 4: Episodic memory
 
-The trigger was: it repeats its own mistakes. So start keeping a journal. Every action, every observation, every outcome, logged. Now when a new investigation starts, the agent can look back and ask, "how did investigation #17 go?" Retrieve by recency, or by similarity to the current situation.
+The trigger was: it repeats its own mistakes. So start keeping a journal. Every action, every observation, every outcome, logged. Now when a new task starts, the agent can look back and ask, "how did task #17 go?" Retrieve by recency, or by similarity to the current situation.
 
 <LayerFlow layer="episodic" />
 
@@ -85,7 +87,7 @@ If your agent is forgetting, your first instinct will be to bolt on a vector dat
 
 ## Layer 6: Retrieval (the one they call RAG)
 
-Here's the rung the entire industry starts on, and it should be the last. Retrieval, RAG, whatever you call it: pull relevant chunks out of a big store on demand, by meaning. Our research agent finally has a knowledge corpus too big to hold any other way, so it searches it when it needs something specific.
+Here's the rung the entire industry starts on, and it should be the last. Retrieval, RAG, whatever you call it: pull relevant chunks out of a big store on demand, by meaning. Your agent finally has a knowledge corpus too big to hold any other way, so it searches it when it needs something specific.
 
 <LayerFlow layer="rag" />
 
