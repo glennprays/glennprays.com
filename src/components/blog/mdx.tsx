@@ -11,6 +11,10 @@ import ScenarioFlow from "./ScenarioFlow";
 import HarnessAnatomy from "./HarnessAnatomy";
 import Progression from "./Progression";
 import ConceptGrid from "./ConceptGrid";
+import MemoryLadder from "./MemoryLadder";
+import StatelessModel from "./StatelessModel";
+import CheatSheet from "./CheatSheet";
+import LayerFlow from "./LayerFlow";
 
 function A({ href = "", children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
     const isInternal = href.startsWith("/") || href.startsWith("#");
@@ -44,4 +48,8 @@ export const mdxComponents = {
     HarnessAnatomy,
     Progression,
     ConceptGrid,
+    MemoryLadder,
+    StatelessModel,
+    CheatSheet,
+    LayerFlow,
 };
