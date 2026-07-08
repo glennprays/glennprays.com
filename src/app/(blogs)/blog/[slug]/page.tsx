@@ -27,6 +27,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
     const blog = allBlogs.find((blog) => blog.slug === params.slug);
     const ogPath = blog?.ogImage ?? `/og/${params.slug}.png`;
+    const postUrl = `${hostName}/blog/${params.slug}`;
+    const ogImage = { url: ogPath, width: 1200, height: 630, alt: `${blog?.title} blog cover` };
     const metadata: Metadata = {
         title: blog?.title + " | glennprays",
         description: blog?.description,
@@ -35,10 +37,18 @@ export async function generateMetadata({ params }: Props) {
             nocache: false,
         },
         openGraph: {
-            images: ogPath,
+            type: "article",
+            url: postUrl,
+            siteName: "glennprays",
+            title: blog?.title,
+            description: blog?.description ?? "",
+            images: [ogImage],
         },
         twitter: {
-            images: ogPath,
+            card: "summary_large_image",
+            title: blog?.title,
+            description: blog?.description ?? "",
+            images: [ogImage],
         },
         authors: { name: blog?.author },
     };
