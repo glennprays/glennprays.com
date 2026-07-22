@@ -34,7 +34,7 @@ export default function HomePage() {
                         variants={Motions.fadeUp(0.3)}
                         className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-md"
                     >
-                        Software Engineering enthusiast with a practical mindset and a strong drive for continuous growth. Experienced in building scalable and efficient software systems.
+                        Software engineer who&apos;s found that &ldquo;it depends&rdquo; is usually the honest answer.
                     </motion.p>
                 </motion.div>
 
