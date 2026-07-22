@@ -9,7 +9,7 @@ export function PersonJsonLd() {
         image: `${hostName}/images/profile-transparent-bg.png`,
         jobTitle: "Software Engineer",
         description:
-            "Software Engineering enthusiast with a practical mindset and a strong drive for continuous growth. Experienced in building scalable and efficient software systems.",
+            "Software engineer who's found that \"it depends\" is usually the honest answer.",
         sameAs: [
             "https://github.com/glennpray",
             "https://linkedin.com/in/glennpray",
